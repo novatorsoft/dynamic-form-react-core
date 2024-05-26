@@ -3,7 +3,7 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["es2020", "dom", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
@@ -14,5 +14,5 @@
     "strict": true,
     "target": "es2020"
   },
-  "include": ["index.tsx", "lib/**/*.ts", "lib/**/*.tsx"]
+  "include": ["lib"]
 }
