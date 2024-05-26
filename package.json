@@ -1,0 +1,46 @@
+{
+  "name": "@nvs-dynamic-form/react-core",
+  "version": "1.0.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "packages.json"
+  ],
+  "scripts": {
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+  },
+  "keywords": [
+    "react",
+    "typed forms",
+    "react dynamic form",
+    "formik",
+    "dynamic form"
+  ],
+  "description": "",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/@nvs-dynamic-form/react-core/issues"
+  },
+  "homepage": "https://github.com/@nvs-dynamic-form/react-core#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/@nvs-dynamic-form/react-core"
+  },
+  "contributors": [
+    "İsmet Kizgin <info@ismetkizgin.com.tr> (https://github.com/ismetkizgin)"
+  ],
+  "author": "İsmet Kizgin <info@ismetkizgin.com.tr> (https://github.com/ismetkizgin)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "react": "^18.3.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5"
+  }
+}
