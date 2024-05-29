@@ -1,1 +1,1 @@
-export const name = "@nvs-dynamic-form/react-core";
+export * from "./nvsDynamicForm";
