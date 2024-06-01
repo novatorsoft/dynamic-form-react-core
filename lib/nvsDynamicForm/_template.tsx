@@ -2,17 +2,27 @@ import "./_style.css";
 
 import * as Yup from "yup";
 
-import { FieldBase, IScreenSize, ScreenSizeType } from "../types";
+import {
+  DynamicObject,
+  FieldBase,
+  IScreenSize,
+  ScreenSizeType,
+} from "../types";
 import { Form, Formik, FormikErrors, FormikTouched } from "formik";
 import React, { useEffect, useState } from "react";
 
-import { DynamicObject } from "../types/dynamic-object";
 import { INvsDynamicForm } from "./_type";
 
 export const NvsDynamicForm = ({
   onSubmit,
   formElements = {},
   fields = [],
+  formClass,
+  submitButton,
+  submitButtonVisible = true,
+  submitButtonLabel = submitButton.defaultOptions.label,
+  submitButtonIsFullWidth = submitButton.defaultOptions.isFullWidth,
+  submitButtonPosition = submitButton.defaultOptions.position,
 }: INvsDynamicForm) => {
   const getDefaultValues = (): DynamicObject => {
     return fields.reduce((acc: DynamicObject, field: FieldBase<any>) => {
@@ -45,7 +55,7 @@ export const NvsDynamicForm = ({
   const createFieldItemClass = (
     screenSize: ScreenSizeType | IScreenSize
   ): Array<string> => {
-    const className: Array<string> = ["df__item"];
+    const className: Array<string> = [];
     if (typeof screenSize == "number") className.push("df-col-" + screenSize);
     else {
       className.push("df-col-" + screenSize?.desktop);
@@ -78,15 +88,32 @@ export const NvsDynamicForm = ({
     ));
   };
 
+  const getSubmitButtonComponent = () => {
+    const SubmitButton = submitButton.component;
+    return <SubmitButton>{submitButtonLabel}</SubmitButton>;
+  };
+
+  const createSubmitButton = () => {
+    const buttonClasses = ["df-button"];
+
+    submitButtonIsFullWidth && buttonClasses.push("df-col-12");
+
+    return (
+      <div className={`df-row df-flex-${submitButtonPosition}`}>
+        <div className={buttonClasses.join(" ")}>
+          {getSubmitButtonComponent()}
+        </div>
+      </div>
+    );
+  };
+
   const createForm = (
     errors: FormikErrors<DynamicObject>,
     touched: FormikTouched<DynamicObject>
   ) => (
-    <Form className="df-container-fluid">
-      <div className="df-row">
-        {createFormElements(errors, touched)}
-        <button type="submit">Submit</button>
-      </div>
+    <Form className={`df-container-fluid${formClass ? ` ${formClass}` : ""}`}>
+      <div className="df-row">{createFormElements(errors, touched)}</div>
+      {submitButtonVisible && createSubmitButton()}
     </Form>
   );
 

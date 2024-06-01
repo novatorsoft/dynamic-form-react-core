@@ -18,5 +18,6 @@ export abstract class FieldBase<ValueType> {
     this.label = options.label;
     this.fieldType = options.fieldType;
     this.screenSize = options.screenSize ?? 12;
+    this.validate = options.validate;
   }
 }

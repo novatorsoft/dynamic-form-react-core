@@ -10,6 +10,14 @@ export default {
   title: "Nvs Dynamic Form",
 };
 
+const ButtonComponent = ({ children }: { children: string }) => {
+  return (
+    <button style={{ width: "100%" }} type="submit">
+      {children}
+    </button>
+  );
+};
+
 const TextboxElement = (opt: TextboxField) => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -20,7 +28,7 @@ const TextboxElement = (opt: TextboxField) => {
 };
 
 class TextboxField extends FieldBase<string> {
-  override readonly fieldType = "textbox";
+  override readonly fieldType? = "textbox";
   type?: "email" | "number" | "password" | "tel" | "text" | "url";
   placeholder?: string;
 
@@ -36,6 +44,18 @@ export const Default: { args: INvsDynamicForm } = {
     onSubmit: (values) => {
       alert(JSON.stringify(values));
     },
+    submitButtonIsFullWidth: false,
+    submitButtonLabel: "Save",
+    submitButtonVisible: true,
+    submitButtonPosition: "right",
+    submitButton: {
+      component: ButtonComponent,
+      defaultOptions: {
+        label: "Save",
+        isFullWidth: true,
+        position: "right",
+      },
+    },
     formElements: {
       textbox: {
         component: TextboxElement,
@@ -43,27 +63,26 @@ export const Default: { args: INvsDynamicForm } = {
       },
     },
     fields: [
-      {
+      new TextboxField({
         id: "firstName",
         label: "First Name",
-        fieldType: "textbox",
         defaultValue: "ismet",
         screenSize: 6,
-      },
-      {
-        id: "lastName",
-        label: "Last Name",
-        fieldType: "textbox",
         validate: Yup.string().required(),
-        screenSize: 6,
-      },
-      {
+      }),
+      new TextboxField({
         id: "lastName",
         label: "Last Name",
-        fieldType: "textbox",
-        validate: Yup.string().email(),
+        screenSize: 6,
+        validate: Yup.string().required(),
+      }),
+      new TextboxField({
+        id: "emailAddress",
+        label: "E-mail Address",
         screenSize: 12,
-      },
+        validate: Yup.string().email().required(),
+        type: "email",
+      }),
     ],
   },
 };
