@@ -12,7 +12,7 @@ export default {
 
 const TextboxElement = (opt: TextboxField) => {
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <label htmlFor={opt.id}>{opt.label}</label>
       <Field id={opt.id} name={opt.id} placeholder={opt.label} />
     </div>
@@ -48,12 +48,21 @@ export const Default: { args: INvsDynamicForm } = {
         label: "First Name",
         fieldType: "textbox",
         defaultValue: "ismet",
+        screenSize: 6,
       },
       {
         id: "lastName",
         label: "Last Name",
         fieldType: "textbox",
         validate: Yup.string().required(),
+        screenSize: 6,
+      },
+      {
+        id: "lastName",
+        label: "Last Name",
+        fieldType: "textbox",
+        validate: Yup.string().email(),
+        screenSize: 12,
       },
     ],
   },

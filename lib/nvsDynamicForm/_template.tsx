@@ -1,10 +1,12 @@
+import "./_style.css";
+
 import * as Yup from "yup";
 
+import { FieldBase, IScreenSize, ScreenSizeType } from "../types";
 import { Form, Formik, FormikErrors, FormikTouched } from "formik";
 import React, { useEffect, useState } from "react";
 
 import { DynamicObject } from "../types/dynamic-object";
-import { FieldBase } from "../types";
 import { INvsDynamicForm } from "./_type";
 
 export const NvsDynamicForm = ({
@@ -40,24 +42,51 @@ export const NvsDynamicForm = ({
     setValidateSchema(getValidateSchema());
   }, [fields]);
 
+  const createFieldItemClass = (
+    screenSize: ScreenSizeType | IScreenSize
+  ): Array<string> => {
+    const className: Array<string> = ["df__item"];
+    if (typeof screenSize == "number") className.push("df-col-" + screenSize);
+    else {
+      className.push("df-col-" + screenSize?.desktop);
+      if (screenSize?.tablet) className.push("df-col-t-" + screenSize.tablet);
+      if (screenSize?.mobile) className.push("df-col-m-" + screenSize.mobile);
+    }
+    return className;
+  };
+
   const createFormElement = (field: FieldBase<any>) => {
     const Field = formElements[field.fieldType!]?.component;
     return Field ? <Field {...field} /> : <></>;
+  };
+
+  const createFormElements = (
+    errors: FormikErrors<DynamicObject>,
+    touched: FormikTouched<DynamicObject>
+  ) => {
+    return fields.map((field: FieldBase<any>) => (
+      <div
+        key={field.id}
+        className={createFieldItemClass(field.screenSize ?? 12).join(" ")}
+      >
+        {createFormElement({
+          ...field,
+          error: errors[field.id],
+          touched: touched[field.id],
+        })}
+      </div>
+    ));
   };
 
   const createForm = (
     errors: FormikErrors<DynamicObject>,
     touched: FormikTouched<DynamicObject>
   ) => (
-    <Form>
-      {fields.map((field: FieldBase<any>) =>
-        createFormElement({
-          ...field,
-          error: errors[field.id],
-          touched: touched[field.id],
-        })
-      )}
-      <button type="submit">Submit</button>
+    <Form className="df-container-fluid">
+      <div className="df-row">
+        {createFormElements(errors, touched)}
+        <button type="submit">Submit</button>
+      </div>
     </Form>
   );
 
