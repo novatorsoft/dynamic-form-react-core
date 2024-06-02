@@ -1,7 +1,7 @@
 import { FieldBase, SubmitButton } from "../types";
 
 export interface INvsDynamicForm {
-  onSubmit: ((values: unknown) => void) | ((values: unknown) => Promise<void>);
+  onSubmit?: ((values: unknown) => void) | ((values: unknown) => Promise<void>);
   submitButton: SubmitButton;
   formElements: {
     [key: string]: {

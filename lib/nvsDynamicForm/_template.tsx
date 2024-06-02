@@ -122,7 +122,7 @@ export const NvsDynamicForm = ({
       initialValues={defaultValues}
       validationSchema={validateSchema}
       onSubmit={async (values) => {
-        await onSubmit(values);
+        onSubmit && (await onSubmit(values));
       }}
     >
       {({ errors, touched }) => createForm(errors, touched)}
