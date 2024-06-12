@@ -67,13 +67,19 @@ export const Default: { args: INvsDynamicForm } = {
         id: "firstName",
         label: "First Name",
         defaultValue: "ismet",
-        screenSize: 6,
+        screenSize: {
+          desktop: 6,
+          mobile: 12,
+        },
         validate: Yup.string().required(),
       }),
       new TextboxField({
         id: "lastName",
         label: "Last Name",
-        screenSize: 6,
+        screenSize: {
+          desktop: 6,
+          mobile: 12,
+        },
         validate: Yup.string().required(),
       }),
       new TextboxField({

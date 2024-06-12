@@ -1,3 +1,4 @@
+import "nvs-flexgrid";
 import "./_style.css";
 
 import * as Yup from "yup";
@@ -56,11 +57,11 @@ export const NvsDynamicForm = ({
     screenSize: ScreenSizeType | IScreenSize
   ): Array<string> => {
     const className: Array<string> = [];
-    if (typeof screenSize == "number") className.push("df-col-" + screenSize);
+    if (typeof screenSize == "number") className.push("nvs-col-" + screenSize);
     else {
-      className.push("df-col-" + screenSize?.desktop);
-      if (screenSize?.tablet) className.push("df-col-t-" + screenSize.tablet);
-      if (screenSize?.mobile) className.push("df-col-m-" + screenSize.mobile);
+      className.push("nvs-col-md-" + screenSize?.desktop);
+      if (screenSize?.tablet) className.push("nvs-col-sm-" + screenSize.tablet);
+      if (screenSize?.mobile) className.push("nvs-col-xs-" + screenSize.mobile);
     }
     return className;
   };
@@ -93,13 +94,24 @@ export const NvsDynamicForm = ({
     return <SubmitButton>{submitButtonLabel}</SubmitButton>;
   };
 
+  const getButtonPositionClass = (position: "left" | "right" | "center") => {
+    const classes = {
+      left: "nvs-jc-start",
+      right: "nvs-jc-end",
+      center: "nvs-jc-center",
+    };
+    return classes[position];
+  };
+
   const createSubmitButton = () => {
     const buttonClasses = ["df-button"];
 
-    submitButtonIsFullWidth && buttonClasses.push("df-col-12");
+    submitButtonIsFullWidth && buttonClasses.push("nvs-col-12");
 
     return (
-      <div className={`df-row df-flex-${submitButtonPosition}`}>
+      <div
+        className={`nvs-row ${getButtonPositionClass(submitButtonPosition)}`}
+      >
         <div className={buttonClasses.join(" ")}>
           {getSubmitButtonComponent()}
         </div>
@@ -111,8 +123,8 @@ export const NvsDynamicForm = ({
     errors: FormikErrors<DynamicObject>,
     touched: FormikTouched<DynamicObject>
   ) => (
-    <Form className={`df-container-fluid${formClass ? ` ${formClass}` : ""}`}>
-      <div className="df-row">{createFormElements(errors, touched)}</div>
+    <Form className={`nvs-container-fluid${formClass ? ` ${formClass}` : ""}`}>
+      <div className="nvs-row">{createFormElements(errors, touched)}</div>
       {submitButtonVisible && createSubmitButton()}
     </Form>
   );
