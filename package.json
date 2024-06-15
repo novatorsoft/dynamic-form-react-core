@@ -2,18 +2,13 @@
   "name": "@nvs-dynamic-form/react-core",
   "version": "1.2.0",
   "main": "dist/cjs/index.js",
-  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
     "packages.json"
   ],
   "scripts": {
-    "copy-css": "cp ./lib/nvsDynamicForm/_style.css ./dist/cjs/nvsDynamicForm && cp ./lib/nvsDynamicForm/_style.css ./dist/nvsDynamicForm",
-    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs && npm run copy-css",
-    "build:esm": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
-    "start": "cd example && npm start",
+    "build": "rollup -c --bundleConfigAsCjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "release": "standard-version"
@@ -44,6 +39,10 @@
   "license": "MIT",
   "devDependencies": {
     "@chromatic-com/storybook": "^1.4.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@storybook/addon-essentials": "^8.1.3",
     "@storybook/addon-interactions": "^8.1.3",
     "@storybook/addon-links": "^8.1.3",
@@ -55,6 +54,10 @@
     "@storybook/test": "^8.1.3",
     "@types/react": "^18.3.3",
     "react": "^18.3.1",
+    "rollup": "^4.18.0",
+    "rollup-plugin-css-only": "^4.5.2",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "standard-version": "^9.5.0",
     "storybook": "^8.1.3",
     "tslib": "^2.6.2",
