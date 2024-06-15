@@ -20,10 +20,12 @@ const ButtonComponent = ({ children }: { children: string }) => {
 
 const TextboxElement = (opt: TextboxField) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <label htmlFor={opt.id}>{opt.label}</label>
-      <Field id={opt.id} name={opt.id} placeholder={opt.label} />
-    </div>
+    <Field
+      style={{ width: "100%", boxSizing: "border-box" }}
+      id={opt.id}
+      name={opt.id}
+      placeholder={opt.label}
+    />
   );
 };
 
@@ -69,7 +71,6 @@ export const Default: { args: INvsDynamicForm } = {
         defaultValue: "ismet",
         screenSize: {
           desktop: 6,
-          mobile: 12,
         },
         validate: Yup.string().required(),
       }),
@@ -78,7 +79,6 @@ export const Default: { args: INvsDynamicForm } = {
         label: "Last Name",
         screenSize: {
           desktop: 6,
-          mobile: 12,
         },
         validate: Yup.string().required(),
       }),
@@ -86,7 +86,6 @@ export const Default: { args: INvsDynamicForm } = {
         id: "emailAddress",
         label: "E-mail Address",
         screenSize: 12,
-        validate: Yup.string().email().required(),
         type: "email",
       }),
     ],
