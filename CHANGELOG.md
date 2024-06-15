@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.1.0...v1.2.0) (2024-06-15)
+
+
+### Features
+
+* upgrade nvs-flexgrid package ([a02ae12](https://github.com/@nvs-dynamic-form/react-core/commit/a02ae126438e393e2fabbdda13f5beea0ef6471d))
+
 ## [1.1.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.0.0...v1.1.0) (2024-06-12)
 
 
