@@ -3,6 +3,5 @@
 .vscode
 .prettierrc
 tsconfig.josn
-lib
 .gitignore
 example
