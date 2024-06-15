@@ -40,7 +40,7 @@ export const NvsDynamicForm = ({
         }
         return acc;
       },
-      {}
+      {},
     );
     return Yup.object(validationSchema);
   };
@@ -54,7 +54,7 @@ export const NvsDynamicForm = ({
   }, [fields]);
 
   const createFieldItemClass = (
-    screenSize: ScreenSizeType | IScreenSize
+    screenSize: ScreenSizeType | IScreenSize,
   ): Array<string> => {
     const className: Array<string> = [];
     if (typeof screenSize == "number") className.push("nvs-col-" + screenSize);
@@ -73,7 +73,7 @@ export const NvsDynamicForm = ({
 
   const createFormElements = (
     errors: FormikErrors<DynamicObject>,
-    touched: FormikTouched<DynamicObject>
+    touched: FormikTouched<DynamicObject>,
   ) => {
     return fields.map((field: FieldBase<any>) => (
       <div
@@ -121,7 +121,7 @@ export const NvsDynamicForm = ({
 
   const createForm = (
     errors: FormikErrors<DynamicObject>,
-    touched: FormikTouched<DynamicObject>
+    touched: FormikTouched<DynamicObject>,
   ) => (
     <Form className={`nvs-container-fluid${formClass ? ` ${formClass}` : ""}`}>
       <div className="nvs-row">{createFormElements(errors, touched)}</div>

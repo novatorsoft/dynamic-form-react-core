@@ -1,14 +1,16 @@
 {
   "name": "@nvs-dynamic-form/react-core",
   "version": "1.2.2",
+  "types": "dist/cjs/index.d.ts",
   "main": "dist/cjs/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/esm/index.js",
   "files": [
     "dist",
     "packages.json"
   ],
   "scripts": {
-    "build": "rm -rf dist/ && prettier --write lib/** && npm run build:esm && npm run build:cjs",
+    "copy-css": "cp ./lib/nvsDynamicForm/_style.css ./dist/cjs/nvsDynamicForm && cp ./lib/nvsDynamicForm/_style.css ./dist/esm/nvsDynamicForm",
+    "build": "rm -rf dist/ && prettier --write lib/** && npm run build:esm && npm run build:cjs && npm run copy-css",
     "build:esm": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
     "storybook": "storybook dev -p 6006",
