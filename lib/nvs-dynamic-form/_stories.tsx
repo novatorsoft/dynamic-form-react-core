@@ -1,4 +1,4 @@
-import { INvsDynamicForm, NvsDynamicForm } from "./";
+import { INvsDynamicForm, NvsDynamicForm } from ".";
 import * as Yup from "yup";
 
 import { Field } from "formik";
