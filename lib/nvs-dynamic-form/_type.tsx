@@ -1,11 +1,8 @@
-import { FieldBase, SubmitButtonOptions } from "../types";
+import { FieldBase } from "../types";
+import { ISubmitButton } from "./elements/submit-button/_type";
 
-export interface INvsDynamicForm {
+export interface INvsDynamicForm extends ISubmitButton {
   onSubmit?: ((values: unknown) => void) | ((values: unknown) => Promise<void>);
-  submitButton: {
-    component: React.FC<any>;
-    defaultOptions: SubmitButtonOptions;
-  };
   formElements: {
     [key: string]: {
       component: React.FC<any>;
@@ -14,8 +11,4 @@ export interface INvsDynamicForm {
   };
   fields: Array<FieldBase<unknown>>;
   formClass?: string;
-  submitButtonVisible?: boolean;
-  submitButtonLabel?: string;
-  submitButtonPosition?: "left" | "center" | "right";
-  submitButtonIsFullWidth?: boolean;
 }

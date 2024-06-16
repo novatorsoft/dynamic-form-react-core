@@ -13,6 +13,7 @@ import { Form, Formik, FormikErrors, FormikTouched } from "formik";
 import React, { useEffect, useState } from "react";
 
 import { INvsDynamicForm } from "./_type";
+import { SubmitButton } from "./elements/submit-button";
 
 export const NvsDynamicForm = ({
   onSubmit,
@@ -20,10 +21,10 @@ export const NvsDynamicForm = ({
   fields = [],
   formClass,
   submitButton,
-  submitButtonVisible = true,
-  submitButtonLabel = submitButton.defaultOptions.label,
-  submitButtonIsFullWidth = submitButton.defaultOptions.isFullWidth,
-  submitButtonPosition = submitButton.defaultOptions.position,
+  submitButtonVisible,
+  submitButtonLabel,
+  submitButtonIsFullWidth,
+  submitButtonPosition,
 }: INvsDynamicForm) => {
   const getDefaultValues = (): DynamicObject => {
     return fields.reduce((acc: DynamicObject, field: FieldBase<any>) => {
@@ -40,7 +41,7 @@ export const NvsDynamicForm = ({
         }
         return acc;
       },
-      {},
+      {}
     );
     return Yup.object(validationSchema);
   };
@@ -54,7 +55,7 @@ export const NvsDynamicForm = ({
   }, [fields]);
 
   const createFieldItemClass = (
-    screenSize: ScreenSizeType | IScreenSize,
+    screenSize: ScreenSizeType | IScreenSize
   ): Array<string> => {
     const className: Array<string> = [];
     if (typeof screenSize == "number") className.push("nvs-col-" + screenSize);
@@ -73,7 +74,7 @@ export const NvsDynamicForm = ({
 
   const createFormElements = (
     errors: FormikErrors<DynamicObject>,
-    touched: FormikTouched<DynamicObject>,
+    touched: FormikTouched<DynamicObject>
   ) => {
     return fields.map((field: FieldBase<any>) => (
       <div
@@ -89,43 +90,19 @@ export const NvsDynamicForm = ({
     ));
   };
 
-  const getSubmitButtonComponent = () => {
-    const SubmitButton = submitButton.component;
-    return <SubmitButton>{submitButtonLabel}</SubmitButton>;
-  };
-
-  const getButtonPositionClass = (position: "left" | "right" | "center") => {
-    const classes = {
-      left: "nvs-jc-start",
-      right: "nvs-jc-end",
-      center: "nvs-jc-center",
-    };
-    return classes[position];
-  };
-
-  const createSubmitButton = () => {
-    const buttonClasses = ["df-button"];
-
-    submitButtonIsFullWidth && buttonClasses.push("nvs-col-12");
-
-    return (
-      <div
-        className={`nvs-row ${getButtonPositionClass(submitButtonPosition)}`}
-      >
-        <div className={buttonClasses.join(" ")}>
-          {getSubmitButtonComponent()}
-        </div>
-      </div>
-    );
-  };
-
   const createForm = (
     errors: FormikErrors<DynamicObject>,
-    touched: FormikTouched<DynamicObject>,
+    touched: FormikTouched<DynamicObject>
   ) => (
     <Form className={`nvs-container-fluid${formClass ? ` ${formClass}` : ""}`}>
       <div className="nvs-row">{createFormElements(errors, touched)}</div>
-      {submitButtonVisible && createSubmitButton()}
+      <SubmitButton
+        submitButton={submitButton}
+        submitButtonVisible={submitButtonVisible}
+        submitButtonLabel={submitButtonLabel}
+        submitButtonIsFullWidth={submitButtonIsFullWidth}
+        submitButtonPosition={submitButtonPosition}
+      />
     </Form>
   );
 
