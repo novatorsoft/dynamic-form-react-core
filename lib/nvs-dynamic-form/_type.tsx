@@ -1,14 +1,9 @@
 import { FieldBase } from "../types";
+import { IField } from "./elements/field";
 import { ISubmitButton } from "./elements/submit-button/_type";
 
-export interface INvsDynamicForm extends ISubmitButton {
+export interface INvsDynamicForm extends ISubmitButton, Omit<IField, "field"> {
   onSubmit?: ((values: unknown) => void) | ((values: unknown) => Promise<void>);
-  formElements: {
-    [key: string]: {
-      component: React.FC<any>;
-      class: typeof FieldBase<any>;
-    };
-  };
   fields: Array<FieldBase<unknown>>;
   formClass?: string;
 }

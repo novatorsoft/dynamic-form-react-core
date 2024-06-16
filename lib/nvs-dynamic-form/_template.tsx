@@ -3,15 +3,11 @@ import "./_style.css";
 
 import * as Yup from "yup";
 
-import {
-  DynamicObject,
-  FieldBase,
-  IScreenSize,
-  ScreenSizeType,
-} from "../types";
+import { DynamicObject, FieldBase } from "../types";
 import { Form, Formik, FormikErrors, FormikTouched } from "formik";
 import React, { useEffect, useState } from "react";
 
+import { Field } from "./elements/field";
 import { INvsDynamicForm } from "./_type";
 import { SubmitButton } from "./elements/submit-button";
 
@@ -54,39 +50,12 @@ export const NvsDynamicForm = ({
     setValidateSchema(getValidateSchema());
   }, [fields]);
 
-  const createFieldItemClass = (
-    screenSize: ScreenSizeType | IScreenSize
-  ): Array<string> => {
-    const className: Array<string> = [];
-    if (typeof screenSize == "number") className.push("nvs-col-" + screenSize);
-    else {
-      className.push("nvs-col-md-" + screenSize?.desktop);
-      if (screenSize?.tablet) className.push("nvs-col-sm-" + screenSize.tablet);
-      if (screenSize?.mobile) className.push("nvs-col-xs-" + screenSize.mobile);
-    }
-    return className;
-  };
-
-  const createFormElement = (field: FieldBase<any>) => {
-    const Field = formElements[field.fieldType!]?.component;
-    return Field ? <Field {...field} /> : <></>;
-  };
-
   const createFormElements = (
     errors: FormikErrors<DynamicObject>,
     touched: FormikTouched<DynamicObject>
   ) => {
     return fields.map((field: FieldBase<any>) => (
-      <div
-        key={field.id}
-        className={createFieldItemClass(field.screenSize ?? 12).join(" ")}
-      >
-        {createFormElement({
-          ...field,
-          error: errors[field.id],
-          touched: touched[field.id],
-        })}
-      </div>
+      <Field formElements={formElements} field={field} />
     ));
   };
 
