@@ -10,7 +10,7 @@
     "packages.json"
   ],
   "scripts": {
-    "copy-css": "cp ./lib/nvsDynamicForm/_style.css ./dist/cjs/nvsDynamicForm && cp ./lib/nvsDynamicForm/_style.css ./dist/esm/nvsDynamicForm",
+    "copy-css": "cp ./lib/nvs-dynamic-form/_style.css ./dist/cjs/nvs-dynamic-form && cp ./lib/nvs-dynamic-form/_style.css ./dist/esm/nvs-dynamic-form",
     "build": "rm -rf dist/ && prettier --write lib/** && npm run build:esm && npm run build:cjs && npm run copy-css",
     "build:esm": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
