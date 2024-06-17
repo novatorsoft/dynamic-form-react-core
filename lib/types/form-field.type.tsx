@@ -10,7 +10,6 @@ export abstract class FieldBase<ValueType> {
   screenSize?: ScreenSizeType | IScreenSize;
   validate?: Yup.AnySchema;
   error?: string;
-  touched?: boolean;
 
   constructor(options: FieldBase<ValueType>, fieldDefaultValue?: ValueType) {
     this.defaultValue = options.defaultValue ?? fieldDefaultValue;

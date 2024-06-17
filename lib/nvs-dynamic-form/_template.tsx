@@ -4,7 +4,7 @@ import "./_style.css";
 import * as Yup from "yup";
 
 import { DynamicObject, FieldBase } from "../types";
-import { Form, Formik, FormikErrors, FormikTouched } from "formik";
+import { Form, FormikProvider, useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 
 import { Field } from "./elements/field";
@@ -50,21 +50,15 @@ export const NvsDynamicForm = ({
     setValidateSchema(getValidateSchema());
   }, [fields]);
 
-  const createFormElements = (
-    errors: FormikErrors<DynamicObject>,
-    touched: FormikTouched<DynamicObject>
-  ) => {
+  const createFormElements = () => {
     return fields.map((field: FieldBase<any>) => (
-      <Field formElements={formElements} field={field} />
+      <Field key={field.id} formElements={formElements} field={field} />
     ));
   };
 
-  const createForm = (
-    errors: FormikErrors<DynamicObject>,
-    touched: FormikTouched<DynamicObject>
-  ) => (
+  const createForm = () => (
     <Form className={`nvs-container-fluid${formClass ? ` ${formClass}` : ""}`}>
-      <div className="nvs-row">{createFormElements(errors, touched)}</div>
+      <div className="nvs-row">{createFormElements()}</div>
       <SubmitButton
         submitButton={submitButton}
         submitButtonVisible={submitButtonVisible}
@@ -75,15 +69,13 @@ export const NvsDynamicForm = ({
     </Form>
   );
 
-  return (
-    <Formik
-      initialValues={defaultValues}
-      validationSchema={validateSchema}
-      onSubmit={async (values) => {
-        onSubmit && (await onSubmit(values));
-      }}
-    >
-      {({ errors, touched }) => createForm(errors, touched)}
-    </Formik>
-  );
+  const formik = useFormik({
+    initialValues: defaultValues,
+    validationSchema: validateSchema,
+    onSubmit: async (values) => {
+      onSubmit && (await onSubmit(values));
+    },
+  });
+
+  return <FormikProvider value={formik}>{createForm()}</FormikProvider>;
 };

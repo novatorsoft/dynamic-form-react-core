@@ -1,7 +1,6 @@
 import { INvsDynamicForm, NvsDynamicForm } from ".";
 import * as Yup from "yup";
 
-import { Field } from "formik";
 import React from "react";
 import { FieldBase } from "../types";
 
@@ -19,14 +18,7 @@ const ButtonComponent = ({ children }: { children: string }) => {
 };
 
 const TextboxElement = (opt: TextboxField) => {
-  return (
-    <Field
-      style={{ width: "100%", boxSizing: "border-box" }}
-      id={opt.id}
-      name={opt.id}
-      placeholder={opt.label}
-    />
-  );
+  return <input style={{ width: "100%", boxSizing: "border-box" }} {...opt} />;
 };
 
 class TextboxField extends FieldBase<string> {
@@ -68,23 +60,26 @@ export const Default: { args: INvsDynamicForm } = {
       new TextboxField({
         id: "firstName",
         label: "First Name",
+        placeholder: "Enter your first name",
         defaultValue: "ismet",
+        validate: Yup.string().required(),
         screenSize: {
           desktop: 6,
         },
-        validate: Yup.string().required(),
       }),
       new TextboxField({
         id: "lastName",
         label: "Last Name",
+        placeholder: "Enter your last name",
+        validate: Yup.string().required(),
         screenSize: {
           desktop: 6,
         },
-        validate: Yup.string().required(),
       }),
       new TextboxField({
         id: "emailAddress",
         label: "E-mail Address",
+        placeholder: "Enter your e-mail address",
         screenSize: 12,
         type: "email",
       }),

@@ -1,12 +1,17 @@
-import { IScreenSize, ScreenSizeType } from "../../../types";
-
 import { IField } from "./_type";
 import React from "react";
+import { useField } from "formik";
 
-export const Field = ({ formElements, field }: IField) => {
-  const createFieldItemClass = (
-    screenSize: ScreenSizeType | IScreenSize
-  ): Array<string> => {
+export const Field = ({
+  formElements,
+  field: { fieldType, screenSize = 12, defaultValue, ...fieldProps },
+}: IField) => {
+  const [formikField, meta] = useField({
+    id: fieldProps.id,
+    name: fieldProps.id,
+  });
+
+  const createFieldItemClass = (): string => {
     const className: Array<string> = [];
     if (typeof screenSize == "number") className.push("nvs-col-" + screenSize);
     else {
@@ -14,16 +19,17 @@ export const Field = ({ formElements, field }: IField) => {
       if (screenSize?.tablet) className.push("nvs-col-sm-" + screenSize.tablet);
       if (screenSize?.mobile) className.push("nvs-col-xs-" + screenSize.mobile);
     }
-    return className;
+    return className.join(" ");
   };
 
-  const Field = formElements[field.fieldType!]?.component;
+  const Field = formElements[fieldType!]?.component;
   return Field ? (
-    <div
-      key={field.id}
-      className={createFieldItemClass(field.screenSize ?? 12).join(" ")}
-    >
-      <Field {...field} />
+    <div key={fieldProps.id} className={createFieldItemClass()}>
+      <Field
+        {...fieldProps}
+        {...formikField}
+        error={meta.error && meta.touched ? meta.error : undefined}
+      />
     </div>
   ) : (
     <></>
