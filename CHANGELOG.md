@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.2.4...v1.3.0) (2024-06-17)
+
+
+### Features
+
+* add custom field support ([563b092](https://github.com/@nvs-dynamic-form/react-core/commit/563b0923ed3565bd938b01ee1660da2152d9542f))
+* create field component ([8b7f06e](https://github.com/@nvs-dynamic-form/react-core/commit/8b7f06e5c9158046400250eca0ed11a1566c428c))
+* create submit-button component ([584587a](https://github.com/@nvs-dynamic-form/react-core/commit/584587ad90037db63ee6f677191003a438fa4663))
+
 ### [1.2.4](https://github.com/@nvs-dynamic-form/react-core/compare/v1.2.3...v1.2.4) (2024-06-15)
 
 ### [1.2.3](https://github.com/@nvs-dynamic-form/react-core/compare/v1.2.2...v1.2.3) (2024-06-15)
