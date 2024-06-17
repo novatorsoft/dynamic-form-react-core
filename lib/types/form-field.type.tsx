@@ -4,7 +4,7 @@ import { IScreenSize, ScreenSizeType } from "./screen-size.type";
 
 export abstract class FieldBase<ValueType> {
   id!: string;
-  label!: string;
+  label?: string;
   fieldType?: string;
   defaultValue?: ValueType;
   screenSize?: ScreenSizeType | IScreenSize;
