@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.3.1...v1.4.0) (2024-06-18)
+
+
+### Features
+
+* add onChange and onBlur in FieldBase class ([4fb09ff](https://github.com/@nvs-dynamic-form/react-core/commit/4fb09ffbfe8dae2e5a659ce416a770f05d73917c))
+
 ### [1.3.1](https://github.com/@nvs-dynamic-form/react-core/compare/v1.3.0...v1.3.1) (2024-06-17)
 
 ## [1.3.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.2.4...v1.3.0) (2024-06-17)
