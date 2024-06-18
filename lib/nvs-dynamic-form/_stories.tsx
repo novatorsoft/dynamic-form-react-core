@@ -1,7 +1,7 @@
 import { INvsDynamicForm, NvsDynamicForm } from ".";
 import * as Yup from "yup";
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { FieldBase } from "../types";
 
 export default {
@@ -63,6 +63,9 @@ export const Default: { args: INvsDynamicForm } = {
         placeholder: "Enter your first name",
         defaultValue: "ismet",
         validate: Yup.string().required(),
+        onChange: (event: ChangeEvent<HTMLInputElement>) => {
+          console.log(event.target.value);
+        },
         screenSize: {
           desktop: 6,
         },
