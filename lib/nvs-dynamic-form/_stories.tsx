@@ -17,8 +17,10 @@ const ButtonComponent = ({ children }: { children: string }) => {
   );
 };
 
-const TextboxElement = (opt: TextboxField) => {
-  return <input style={{ width: "100%", boxSizing: "border-box" }} {...opt} />;
+const TextboxElement = ({ defaultValue, ...props }: TextboxField) => {
+  return (
+    <input style={{ width: "100%", boxSizing: "border-box" }} {...props} />
+  );
 };
 
 class TextboxField extends FieldBase<string> {
@@ -68,6 +70,7 @@ export const Default: { args: INvsDynamicForm } = {
         },
         screenSize: {
           desktop: 6,
+          mobile: 6,
         },
       }),
       new TextboxField({
@@ -77,6 +80,7 @@ export const Default: { args: INvsDynamicForm } = {
         validate: Yup.string().required(),
         screenSize: {
           desktop: 6,
+          mobile: 6,
         },
       }),
       new TextboxField({

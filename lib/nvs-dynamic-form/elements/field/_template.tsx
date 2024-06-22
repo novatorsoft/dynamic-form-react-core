@@ -5,14 +5,7 @@ import { useField } from "formik";
 
 export const Field = ({
   formElements,
-  field: {
-    fieldType,
-    screenSize = 12,
-    defaultValue,
-    onBlur,
-    onChange,
-    ...fieldProps
-  },
+  field: { fieldType, screenSize = 12, onBlur, onChange, ...fieldProps },
 }: IField) => {
   const [formikField, meta] = useField({
     id: fieldProps.id,
