@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.4.1...v1.5.0) (2024-07-07)
+
+
+### Features
+
+* onChange method has been made array value manageable ([09a6beb](https://github.com/@nvs-dynamic-form/react-core/commit/09a6beb384c877fc0cb13aa5702b3d58f2856898))
+
 ### [1.4.1](https://github.com/@nvs-dynamic-form/react-core/compare/v1.4.0...v1.4.1) (2024-06-22)
 
 
