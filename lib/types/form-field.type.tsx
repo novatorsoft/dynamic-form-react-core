@@ -11,7 +11,7 @@ export abstract class FieldBase<ValueType, HtmlElement = any> {
   screenSize?: ScreenSizeType | IScreenSize;
   validate?: Yup.AnySchema;
   error?: string;
-  onChange?: (event: ChangeEvent<HtmlElement>) => void;
+  onChange?: (event: ChangeEvent<HtmlElement> | Array<unknown>) => void;
   onBlur?: (event: FocusEvent<HtmlElement>) => void;
 
   constructor(options: FieldBase<ValueType>, fieldDefaultValue?: ValueType) {

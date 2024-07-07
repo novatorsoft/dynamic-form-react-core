@@ -7,7 +7,7 @@ export const Field = ({
   formElements,
   field: { fieldType, screenSize = 12, onBlur, onChange, ...fieldProps },
 }: IField) => {
-  const [formikField, meta] = useField({
+  const [formikField, meta, helpers] = useField({
     id: fieldProps.id,
     name: fieldProps.id,
   });
@@ -23,9 +23,14 @@ export const Field = ({
     return className.join(" ");
   };
 
-  const onChangeHandler = (event: ChangeEvent) => {
-    onChange && onChange(event);
-    formikField.onChange(event);
+  const onChangeHandler = (event: ChangeEvent | Array<unknown>) => {
+    if (Array.isArray(event)) {
+      helpers.setValue(event);
+      onChange && onChange(event);
+    } else {
+      onChange && onChange(event);
+      formikField.onChange(event);
+    }
   };
 
   const onBlurHandler = (event: FocusEvent) => {
