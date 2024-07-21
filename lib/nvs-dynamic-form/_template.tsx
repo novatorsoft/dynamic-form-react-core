@@ -3,12 +3,12 @@ import "./_style.css";
 
 import * as Yup from "yup";
 
-import { DynamicObject, FieldBase } from "../types";
+import { DynamicObject, FieldBase, GroupFields } from "../types";
+import { FieldType, INvsDynamicForm } from "./_type";
 import { Form, FormikProvider, useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 
 import { Field } from "./elements/field";
-import { INvsDynamicForm } from "./_type";
 import { SubmitButton } from "./elements/submit-button";
 
 export const NvsDynamicForm = ({
@@ -22,19 +22,32 @@ export const NvsDynamicForm = ({
   submitButtonIsFullWidth,
   submitButtonPosition,
 }: INvsDynamicForm) => {
-  const getDefaultValues = (): DynamicObject => {
-    return fields.reduce((acc: DynamicObject, field: FieldBase<any>) => {
-      acc[field.id] = field.defaultValue;
+  const getFieldDefaultValue = (field: FieldType) => {
+    return field instanceof GroupFields
+      ? getDefaultValues(field.fields!)
+      : field.defaultValue;
+  };
+
+  const getDefaultValues = (fields: Array<FieldType>): DynamicObject => {
+    return fields.reduce((acc: DynamicObject, field: FieldType) => {
+      acc[field.id] = getFieldDefaultValue(field);
       return acc;
     }, {});
   };
 
-  const getValidateSchema = () => {
+  const getFieldValidate = (field: FieldType) => {
+    if (field instanceof GroupFields) {
+      return createValidateSchema(field.fields!);
+    } else if (field?.validate) {
+      return field.validate;
+    }
+  };
+
+  const createValidateSchema = (fields: Array<FieldType>) => {
     const validationSchema = fields.reduce(
       (acc: { [key: string]: Yup.AnySchema }, field) => {
-        if (field?.validate) {
-          acc[field.id] = field.validate;
-        }
+        const validate = getFieldValidate(field);
+        if (validate) acc[field.id] = validate;
         return acc;
       },
       {}
@@ -42,23 +55,44 @@ export const NvsDynamicForm = ({
     return Yup.object(validationSchema);
   };
 
-  const [defaultValues, setDefaultValues] = useState(getDefaultValues());
-  const [validateSchema, setValidateSchema] = useState(getValidateSchema());
+  const [defaultValues, setDefaultValues] = useState(getDefaultValues(fields));
+  const [validateSchema, setValidateSchema] = useState(
+    createValidateSchema(fields)
+  );
 
   useEffect(() => {
-    setDefaultValues(getDefaultValues());
-    setValidateSchema(getValidateSchema());
+    setDefaultValues(getDefaultValues(fields));
+    setValidateSchema(createValidateSchema(fields));
   }, [fields]);
 
-  const createFormElements = () => {
-    return fields.map((field: FieldBase<any>) => (
-      <Field key={field.id} formElements={formElements} field={field} />
-    ));
+  const createFormElement = (field: FieldBase<unknown>) => {
+    return <Field key={field.id} formElements={formElements} field={field} />;
+  };
+
+  const createFormElements = (
+    fields: Array<FieldType>,
+    groupId?: string
+  ): JSX.Element[] => {
+    const fieldsElements = [];
+
+    for (const field of fields) {
+      if (field instanceof GroupFields)
+        fieldsElements.push(...createFormElements(field.fields!, field.id));
+      else {
+        fieldsElements.push(
+          createFormElement({
+            ...field,
+            id: groupId ? `${groupId}.${field.id}` : field.id,
+          })
+        );
+      }
+    }
+    return fieldsElements;
   };
 
   const createForm = () => (
     <Form className={`nvs-container-fluid${formClass ? ` ${formClass}` : ""}`}>
-      <div className="nvs-row">{createFormElements()}</div>
+      <div className="nvs-row">{createFormElements(fields)}</div>
       <SubmitButton
         submitButton={submitButton}
         submitButtonVisible={submitButtonVisible}
