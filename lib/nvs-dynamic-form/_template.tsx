@@ -1,14 +1,12 @@
 import "nvs-flexgrid";
 import "./_style.css";
 
-import * as Yup from "yup";
-
-import { DynamicObject, FieldBase, GroupFields } from "../types";
+import { FieldBase, GroupFields } from "../types";
 import { FieldType, INvsDynamicForm } from "./_type";
-import { Form, FormikProvider, useFormik } from "formik";
-import React, { useEffect, useState } from "react";
 
 import { Field } from "./elements/field";
+import { FormikForm } from "./formikForm";
+import React from "react";
 import { SubmitButton } from "./elements/submit-button";
 
 export const NvsDynamicForm = ({
@@ -22,49 +20,6 @@ export const NvsDynamicForm = ({
   submitButtonIsFullWidth,
   submitButtonPosition,
 }: INvsDynamicForm) => {
-  const getFieldDefaultValue = (field: FieldType) => {
-    return field instanceof GroupFields
-      ? getDefaultValues(field.fields!)
-      : field.defaultValue;
-  };
-
-  const getDefaultValues = (fields: Array<FieldType>): DynamicObject => {
-    return fields.reduce((acc: DynamicObject, field: FieldType) => {
-      acc[field.id] = getFieldDefaultValue(field);
-      return acc;
-    }, {});
-  };
-
-  const getFieldValidate = (field: FieldType) => {
-    if (field instanceof GroupFields) {
-      return createValidateSchema(field.fields!);
-    } else if (field?.validate) {
-      return field.validate;
-    }
-  };
-
-  const createValidateSchema = (fields: Array<FieldType>) => {
-    const validationSchema = fields.reduce(
-      (acc: { [key: string]: Yup.AnySchema }, field) => {
-        const validate = getFieldValidate(field);
-        if (validate) acc[field.id] = validate;
-        return acc;
-      },
-      {}
-    );
-    return Yup.object(validationSchema);
-  };
-
-  const [defaultValues, setDefaultValues] = useState(getDefaultValues(fields));
-  const [validateSchema, setValidateSchema] = useState(
-    createValidateSchema(fields)
-  );
-
-  useEffect(() => {
-    setDefaultValues(getDefaultValues(fields));
-    setValidateSchema(createValidateSchema(fields));
-  }, [fields]);
-
   const createFormElement = (field: FieldBase<unknown>) => {
     return <Field key={field.id} formElements={formElements} field={field} />;
   };
@@ -91,7 +46,7 @@ export const NvsDynamicForm = ({
   };
 
   const createForm = () => (
-    <Form className={`nvs-container-fluid${formClass ? ` ${formClass}` : ""}`}>
+    <>
       <div className="nvs-row">{createFormElements(fields)}</div>
       <SubmitButton
         submitButton={submitButton}
@@ -100,16 +55,12 @@ export const NvsDynamicForm = ({
         submitButtonIsFullWidth={submitButtonIsFullWidth}
         submitButtonPosition={submitButtonPosition}
       />
-    </Form>
+    </>
   );
 
-  const formik = useFormik({
-    initialValues: defaultValues,
-    validationSchema: validateSchema,
-    onSubmit: async (values) => {
-      onSubmit && (await onSubmit(values));
-    },
-  });
-
-  return <FormikProvider value={formik}>{createForm()}</FormikProvider>;
+  return (
+    <FormikForm onSubmit={onSubmit} fields={fields} formClass={formClass}>
+      {createForm()}
+    </FormikForm>
+  );
 };
