@@ -9,4 +9,5 @@ export interface ISubmitButton {
   submitButtonLabel?: string;
   submitButtonPosition?: "left" | "center" | "right";
   submitButtonIsFullWidth?: boolean;
+  submitButtonContainerClass?: string;
 }

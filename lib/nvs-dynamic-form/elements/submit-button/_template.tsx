@@ -7,6 +7,7 @@ export const SubmitButton = ({
   submitButtonLabel = submitButton.defaultOptions.label,
   submitButtonIsFullWidth = submitButton.defaultOptions.isFullWidth,
   submitButtonPosition = submitButton.defaultOptions.position,
+  submitButtonContainerClass,
 }: ISubmitButton) => {
   const getSubmitButtonComponent = () => {
     const SubmitButton = submitButton.component;
@@ -31,9 +32,15 @@ export const SubmitButton = ({
   };
 
   return submitButtonVisible ? (
-    <div className={`nvs-row ${getButtonPositionClass(submitButtonPosition)}`}>
-      <div className={getSubmitButtonClasses()}>
-        {getSubmitButtonComponent()}
+    <div
+      className={`nvs-container-fluid${submitButtonContainerClass && ` ${submitButtonContainerClass}`}`}
+    >
+      <div
+        className={`nvs-row ${getButtonPositionClass(submitButtonPosition)}`}
+      >
+        <div className={getSubmitButtonClasses()}>
+          {getSubmitButtonComponent()}
+        </div>
       </div>
     </div>
   ) : (
