@@ -9,4 +9,9 @@ export interface INvsDynamicForm extends ISubmitButton, Omit<IField, "field"> {
   onSubmit?: ((values: unknown) => void) | ((values: unknown) => Promise<void>);
   fields: Array<FieldType>;
   formClass?: string;
+  container?: React.FC<any>;
+  containerOptions?: { [key: string]: any };
+  containerVisible?: boolean;
+  useContainersOutsideGroup?: boolean;
+  useGroupContainer?: boolean;
 }

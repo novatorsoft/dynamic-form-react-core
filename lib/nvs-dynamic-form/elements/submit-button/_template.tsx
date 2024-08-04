@@ -33,7 +33,7 @@ export const SubmitButton = ({
 
   return submitButtonVisible ? (
     <div
-      className={`nvs-container-fluid${submitButtonContainerClass && ` ${submitButtonContainerClass}`}`}
+      className={`nvs-container-fluid${submitButtonContainerClass ? ` ${submitButtonContainerClass}` : ""}`}
     >
       <div
         className={`nvs-row ${getButtonPositionClass(submitButtonPosition)}`}

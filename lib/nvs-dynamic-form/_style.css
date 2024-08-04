@@ -3,3 +3,9 @@
   margin-top: 8px;
   padding: 0 4px;
 }
+
+.df-form-group {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+}
