@@ -67,7 +67,7 @@ export const NvsDynamicForm = ({
     return fields.filter((field) => !isParentField(field));
   };
 
-  const createFormContent = (formElements: ReactNode) => {
+  const createFormContentContainer = (formElements: ReactNode) => {
     return (
       <div className="nvs-container-fluid">
         <div className="nvs-row">{formElements}</div>
@@ -88,7 +88,7 @@ export const NvsDynamicForm = ({
 
     return subFormGroupFields.map((groupField: GroupFields) =>
       createFormElementGroupContainer(
-        createFormContent(
+        createFormContentContainer(
           createFormElements(groupField.fields ?? [], groupField.id)
         ),
         groupField.containerOptions ?? containerOptions
@@ -96,37 +96,43 @@ export const NvsDynamicForm = ({
     );
   };
 
-  const createFormElementGroupContainers = () => {
+  const createFormGroup = (formContent: ReactNode) => {
+    return <div className="df-form-group">{formContent}</div>;
+  };
+
+  const createFormContent = () => {
     const parentFormFields = getParentFormElements();
-
-    let formContent = (
-      <div className="df-form-group">
-        {createFormContent(createFormElements(parentFormFields))}
-        {createSubFormElementGroupContainers()}
-      </div>
+    const parentContainer = createFormContentContainer(
+      createFormElements(parentFormFields)
     );
+    const groupContainers = createSubFormElementGroupContainers();
 
+    let formContent;
     if (
       containerVisible &&
       useContainersOutsideGroup &&
       parentFormFields.length > 0
-    ) {
+    )
       formContent = (
         <>
-          {createFormElementGroupContainer(
-            createFormContent(createFormElements(parentFormFields))
-          )}
-          {createSubFormElementGroupContainers()}
+          {createFormElementGroupContainer(parentContainer)}
+          {groupContainers}
         </>
       );
-    }
+    else
+      formContent = createFormGroup(
+        <>
+          {parentContainer}
+          {groupContainers}
+        </>
+      );
 
     return formContent;
   };
 
   const formikForm = (
     <FormikForm onSubmit={onSubmit} fields={fields} formClass={formClass}>
-      {createFormElementGroupContainers()}
+      {createFormContent()}
       <SubmitButton
         submitButton={submitButton}
         submitButtonVisible={submitButtonVisible}
