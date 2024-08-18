@@ -8,6 +8,7 @@ import React, { ReactNode } from "react";
 import { Field } from "./elements/field";
 import { FormikForm } from "./formikForm";
 import { SubmitButton } from "./elements/submit-button";
+import { FieldArray } from "./elements/fieldArray";
 
 export const NvsDynamicForm = ({
   onSubmit,
@@ -27,6 +28,8 @@ export const NvsDynamicForm = ({
   useGroupContainer = false,
 }: INvsDynamicForm) => {
   const createFormElement = (field: FieldBase<unknown>) => {
+    if (field.fieldType === 'fieldArray')
+      return <FieldArray field={field} formElements={formElements} />
     return <Field key={field.id} formElements={formElements} field={field} />;
   };
 

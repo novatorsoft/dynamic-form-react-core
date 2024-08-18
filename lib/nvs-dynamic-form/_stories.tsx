@@ -3,6 +3,7 @@ import * as Yup from "yup";
 
 import React, { ChangeEvent } from "react";
 import { FieldBase, GroupFields } from "../types";
+import { ArrayField } from "./elements/fieldArray";
 
 export default {
   component: NvsDynamicForm,
@@ -272,4 +273,54 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
       }),
     ],
   },
+};
+
+export const ArrayFieldExample: { args: INvsDynamicForm; name: string } = {
+  name: "Array Field Example",
+  args: {
+    onSubmit: (values) => {
+      alert(JSON.stringify(values));
+    },
+    submitButtonIsFullWidth: false,
+    submitButtonLabel: "Save",
+    submitButtonVisible: true,
+    submitButtonPosition: "right",
+    submitButton: {
+      component: ButtonComponent,
+      defaultOptions: {
+        label: "Save",
+        isFullWidth: true,
+        position: "right",
+      },
+    },
+    formElements: {
+      textbox: {
+        component: TextboxElement,
+        class: TextboxField,
+      },
+    },
+    fields: [
+      new ArrayField({
+        id: "items",
+        fieldType: 'fieldArray',
+        defaultValue: [{name: 'AYBERK'}, {name: 'Iso'}],
+        screenSize: 12,
+        validate: Yup.array()
+            .of(
+                Yup.object().shape({
+                  name: Yup.string().required("Name is required"),
+                })
+            )
+            .min(1, "At least one item is required") // En az bir öğe bulunmalı
+            .required("You must have at least one item"),
+        fields: [
+          new TextboxField({
+            id: "name",
+            placeholder: "Name",
+            screenSize: 6
+          }),
+        ]
+      }),
+    ],
+  }
 };
