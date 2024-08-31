@@ -311,7 +311,70 @@ export const ArrayFieldExample: { args: INvsDynamicForm; name: string } = {
     fields: [
       new ArrayField({
         id: "items",
-        defaultValue: [{ name: "Answer-1" }, { name: "Answer-2" }],
+        defaultValue: [
+          { firstName: "Ismet", lastName: "Kizgin" },
+          { name: "Ayberk" },
+        ],
+        screenSize: 12,
+        properties: ["firstName", "lastName"],
+        buttonComponent: ButtonComponent,
+        addButton: { label: "Add" },
+        removeButton: { label: "Remove" },
+        validate: Yup.array()
+          .of(
+            Yup.object().shape({
+              firstName: Yup.string().required("Name is required"),
+            }),
+          )
+          .min(1, "At least one item is required")
+          .required("You must have at least one item"),
+        fields: [
+          new TextboxField({
+            id: "firstName",
+            placeholder: "First Name",
+          }),
+          new TextboxField({
+            id: "lastName",
+            placeholder: "Last Name",
+          }),
+        ],
+      }),
+    ],
+  },
+};
+
+export const GroupArrayFieldExample: { args: INvsDynamicForm; name: string } = {
+  name: "Group Array Field Example",
+  args: {
+    onSubmit: (values) => {
+      alert(JSON.stringify(values));
+    },
+    submitButtonIsFullWidth: false,
+    submitButtonLabel: "Save",
+    submitButtonVisible: true,
+    submitButtonPosition: "right",
+    button: {
+      component: ButtonComponent,
+      defaultOptions: {
+        label: "Save",
+        isFullWidth: true,
+        position: "right",
+      },
+    },
+    formElements: {
+      textbox: {
+        component: TextboxElement,
+        class: TextboxField,
+      },
+    },
+    fields: [
+      new ArrayField({
+        id: "items",
+        defaultValue: [
+          { questionAnswer: { question: "Question-1", answer: "Answer-1" } },
+          { questionAnswer: { question: "Question-2", answer: "Answer-2" } },
+        ],
+        properties: ["questionAnswer.question", "questionAnswer.answer"],
         screenSize: 12,
         buttonComponent: ButtonComponent,
         addButton: { label: "Add" },
@@ -319,18 +382,119 @@ export const ArrayFieldExample: { args: INvsDynamicForm; name: string } = {
         validate: Yup.array()
           .of(
             Yup.object().shape({
-              name: Yup.string().required("Name is required"),
+              questionAnswer: Yup.object().shape({
+                question: Yup.string().required("Question is required"),
+                answer: Yup.string().required("Answer is required"),
+              }),
             }),
           )
           .min(1, "At least one item is required")
           .required("You must have at least one item"),
         fields: [
-          new TextboxField({
-            id: "name",
-            placeholder: "Name",
+          new GroupFields({
+            id: "questionAnswer",
+            fields: [
+              new TextboxField({
+                id: "question",
+                label: "Question",
+                placeholder: "Enter question",
+                screenSize: 6,
+              }),
+              new TextboxField({
+                id: "answer",
+                label: "Answer",
+                placeholder: "Enter answer",
+                screenSize: 6,
+              }),
+            ],
           }),
         ],
       }),
     ],
   },
 };
+
+export const GroupAndBasicArrayFieldExample: { args: INvsDynamicForm; name: string } =
+  {
+    name: "Group and Basic Array Field Example",
+    args: {
+      onSubmit: (values) => {
+        alert(JSON.stringify(values));
+      },
+      submitButtonIsFullWidth: false,
+      submitButtonLabel: "Save",
+      submitButtonVisible: true,
+      submitButtonPosition: "right",
+      button: {
+        component: ButtonComponent,
+        defaultOptions: {
+          label: "Save",
+          isFullWidth: true,
+          position: "right",
+        },
+      },
+      formElements: {
+        textbox: {
+          component: TextboxElement,
+          class: TextboxField,
+        },
+      },
+      fields: [
+        new ArrayField({
+          id: "items",
+          defaultValue: [
+            {
+              questionAnswer: { question: "Question-1", answer: "Answer-1" },
+              context: "Context",
+            },
+            { questionAnswer: { question: "Question-2", answer: "Answer-2" } },
+          ],
+          properties: [
+            "questionAnswer.question",
+            "questionAnswer.answer",
+            "context",
+          ],
+          screenSize: 12,
+          buttonComponent: ButtonComponent,
+          addButton: { label: "Add" },
+          removeButton: { label: "Remove" },
+          validate: Yup.array()
+            .of(
+              Yup.object().shape({
+                questionAnswer: Yup.object().shape({
+                  question: Yup.string().required("Question is required"),
+                  answer: Yup.string().required("Answer is required"),
+                }),
+              }),
+            )
+            .min(1, "At least one item is required")
+            .required("You must have at least one item"),
+          fields: [
+            new GroupFields({
+              id: "questionAnswer",
+              fields: [
+                new TextboxField({
+                  id: "question",
+                  label: "Question",
+                  placeholder: "Enter question",
+                  screenSize: 6,
+                }),
+                new TextboxField({
+                  id: "answer",
+                  label: "Answer",
+                  placeholder: "Enter answer",
+                  screenSize: 6,
+                }),
+              ],
+            }),
+            new TextboxField({
+              id: "context",
+              label: "Context",
+              placeholder: "Enter Context",
+              screenSize: 6,
+            }),
+          ],
+        }),
+      ],
+    },
+  };

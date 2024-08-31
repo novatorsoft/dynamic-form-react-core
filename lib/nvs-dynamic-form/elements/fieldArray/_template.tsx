@@ -1,9 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 
 import { FieldArray as FormikFieldArray, useField } from "formik";
-import { ArrayField } from "../../../types";
+import { ArrayField, FieldBase, GroupFields } from "../../../types";
 import { createFieldItemClass } from "../baseField";
-import { IFieldArray } from "./_type";
+import { IFieldArray } from "./";
+import { IFormElement } from "../field";
 
 export const FieldArray = ({
   formElements,
@@ -13,6 +14,7 @@ export const FieldArray = ({
     screenSize = 12,
     onBlur,
     onChange,
+    properties,
     addButton,
     removeButton,
     ...fieldProps
@@ -31,26 +33,17 @@ export const FieldArray = ({
     <div>
       {items.map((_, index) => (
         <div
-          style={{ display: "flex", flexDirection: "row", marginBottom: 12 }}
+          style={{ gap: 8, display: "flex", flexDirection: "row", marginBottom: 12 }}
           key={index}
         >
           {formElements &&
-            (fieldProps as ArrayField)?.fields?.map((field) => {
-              const FieldComponent =
-                formElements[field?.fieldType as string]?.component;
-              return (
-                <FieldComponent
-                  {...field}
-                  {...formikField}
-                  key={`${index}.${field.id}`}
-                  id={`${formikField.name}.${index}.${field.id}`}
-                  name={`${formikField.name}.${index}.${field.id}`}
-                  value={formikField.value[index][field.id]}
-                />
-              );
-            })}
+            (fieldProps as ArrayField)?.fields?.map(
+              (field: FieldBase<unknown> | GroupFields) => {
+                return renderField(field, index, formikField, formElements);
+              },
+            )}
           <ButtonComponent
-            style={removeButton.style ? removeButton.style : { marginLeft: 10 }}
+            style={removeButton.style ? removeButton.style : {}}
             type="button"
             {...removeButton}
             onClick={() => remove(index)}
@@ -63,12 +56,92 @@ export const FieldArray = ({
         style={addButton.style ? addButton.style : { float: "left" }}
         type="button"
         {...addButton}
-        onClick={() => push({ name: "", value: "" })}
+        onClick={() => addNewFieldItem(push)}
       >
         {addButton.label}
       </ButtonComponent>
     </div>
   );
+
+  const addNewFieldItem = (push: (obj: any) => void) => {
+    const newItem: { [key: string]: any } = properties.reduce(
+      (acc: { [key: string]: any }, property: string) => {
+        if (property.includes(".")) {
+          const [parent, child] = property.split(".");
+          acc[parent] = acc[parent] || {};
+          acc[parent][child] = "";
+        } else {
+          acc[property] = "";
+        }
+        return acc;
+      },
+      {},
+    );
+
+    push(newItem);
+  };
+
+  const renderFieldComponent = (
+    field: FieldBase<unknown>,
+    index: number,
+    formikField: any,
+    formElements: IFormElement,
+    parentGroupId?: string,
+  ): JSX.Element | null => {
+    const FieldComponent: FC<any> =
+      formElements[field?.fieldType as string]?.component;
+    const fieldName = parentGroupId
+      ? `${formikField.name}.${index}.${parentGroupId}.${field.id}`
+      : `${formikField.name}.${index}.${field.id}`;
+    const fieldValue = parentGroupId
+      ? formikField.value[index][parentGroupId as string][field.id]
+      : formikField.value[index][field.id];
+
+    return FieldComponent ? (
+      <FieldComponent
+        {...field}
+        {...formikField}
+        key={`${index}.${field.id}`}
+        id={`${formikField.name}.${index}.${field.id}`}
+        name={fieldName}
+        value={fieldValue}
+      />
+    ) : null;
+  };
+
+  const renderGroupFieldComponent = (
+    groupField: GroupFields,
+    index: number,
+    formikField: any,
+    formElements: IFormElement,
+  ) => {
+    return (
+      <div key={groupField.id} className="df-group-field">
+        {groupField.fields?.map((field) => {
+          return renderFieldComponent(
+            field,
+            index,
+            formikField,
+            formElements,
+            groupField.id,
+          );
+        })}
+      </div>
+    );
+  };
+
+  const renderField = (
+    field: FieldBase<unknown> | GroupFields,
+    index: number,
+    formikField: any,
+    formElements: IFormElement,
+  ): JSX.Element | null => {
+    if (!(field instanceof GroupFields)) {
+      return renderFieldComponent(field, index, formikField, formElements);
+    } else {
+      return renderGroupFieldComponent(field, index, formikField, formElements);
+    }
+  };
 
   const renderFieldArray = () => (
     <div key={fieldProps.id} className={createFieldItemClass(screenSize)}>
