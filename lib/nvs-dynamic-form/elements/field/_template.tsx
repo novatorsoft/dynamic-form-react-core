@@ -2,6 +2,7 @@ import React, { ChangeEvent, FocusEvent } from "react";
 
 import { IField } from "./_type";
 import { useField } from "formik";
+import { createFieldItemClass } from "../baseField";
 
 export const Field = ({
   formElements,
@@ -11,17 +12,6 @@ export const Field = ({
     id: fieldProps.id,
     name: fieldProps.id,
   });
-
-  const createFieldItemClass = (): string => {
-    const className: Array<string> = [];
-    if (typeof screenSize == "number") className.push("nvs-col-" + screenSize);
-    else {
-      className.push("nvs-col-md-" + screenSize?.desktop);
-      if (screenSize?.tablet) className.push("nvs-col-sm-" + screenSize.tablet);
-      if (screenSize?.mobile) className.push("nvs-col-xs-" + screenSize.mobile);
-    }
-    return className.join(" ");
-  };
 
   const onChangeHandler = (event: ChangeEvent | Array<unknown>) => {
     if (Array.isArray(event)) {
@@ -40,7 +30,7 @@ export const Field = ({
 
   const Field = formElements[fieldType!]?.component;
   return Field ? (
-    <div key={fieldProps.id} className={createFieldItemClass()}>
+    <div key={fieldProps.id} className={createFieldItemClass(screenSize)}>
       <Field
         {...fieldProps}
         {...formikField}

@@ -1,7 +1,7 @@
 import { SubmitButtonOptions } from "../../../types";
 
 export interface ISubmitButton {
-  submitButton: {
+  button: {
     component: React.FC<any>;
     defaultOptions: SubmitButtonOptions;
   };

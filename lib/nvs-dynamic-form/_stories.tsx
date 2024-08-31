@@ -1,18 +1,27 @@
 import { INvsDynamicForm, NvsDynamicForm } from ".";
 import * as Yup from "yup";
 
-import React, { ChangeEvent } from "react";
-import { FieldBase, GroupFields } from "../types";
-import { ArrayField } from "./elements/fieldArray";
+import React, { ChangeEvent, CSSProperties } from "react";
+import { ArrayField, FieldBase, GroupFields } from "../types";
 
 export default {
   component: NvsDynamicForm,
   title: "Nvs Dynamic Form",
 };
 
-const ButtonComponent = ({ children }: { children: string }) => {
+const ButtonComponent = ({
+  children,
+  type = "submit",
+  onClick,
+  style = { width: "100%" },
+}: {
+  type: "submit" | "reset" | "button" | undefined;
+  children: string;
+  onClick?: () => void;
+  style?: CSSProperties;
+}) => {
   return (
-    <button style={{ width: "100%" }} type="submit">
+    <button style={style} onClick={onClick} type={type}>
       {children}
     </button>
   );
@@ -59,7 +68,7 @@ export const Default: { args: INvsDynamicForm; name: string } = {
     submitButtonLabel: "Save",
     submitButtonVisible: true,
     submitButtonPosition: "right",
-    submitButton: {
+    button: {
       component: ButtonComponent,
       defaultOptions: {
         label: "Save",
@@ -116,7 +125,7 @@ export const Group: { args: INvsDynamicForm; name: string } = {
     submitButtonLabel: "Save",
     submitButtonVisible: true,
     submitButtonPosition: "right",
-    submitButton: {
+    button: {
       component: ButtonComponent,
       defaultOptions: {
         label: "Save",
@@ -195,7 +204,7 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
     containerOptions: {
       title: "Title",
     },
-    submitButton: {
+    button: {
       component: ButtonComponent,
       defaultOptions: {
         label: "Save",
@@ -285,7 +294,7 @@ export const ArrayFieldExample: { args: INvsDynamicForm; name: string } = {
     submitButtonLabel: "Save",
     submitButtonVisible: true,
     submitButtonPosition: "right",
-    submitButton: {
+    button: {
       component: ButtonComponent,
       defaultOptions: {
         label: "Save",
@@ -302,25 +311,26 @@ export const ArrayFieldExample: { args: INvsDynamicForm; name: string } = {
     fields: [
       new ArrayField({
         id: "items",
-        fieldType: 'fieldArray',
-        defaultValue: [{name: 'AYBERK'}, {name: 'Iso'}],
+        defaultValue: [{ name: "Answer-1" }, { name: "Answer-2" }],
         screenSize: 12,
+        buttonComponent: ButtonComponent,
+        addButton: { label: "Add" },
+        removeButton: { label: "Remove" },
         validate: Yup.array()
-            .of(
-                Yup.object().shape({
-                  name: Yup.string().required("Name is required"),
-                })
-            )
-            .min(1, "At least one item is required") // En az bir öğe bulunmalı
-            .required("You must have at least one item"),
+          .of(
+            Yup.object().shape({
+              name: Yup.string().required("Name is required"),
+            }),
+          )
+          .min(1, "At least one item is required")
+          .required("You must have at least one item"),
         fields: [
           new TextboxField({
             id: "name",
             placeholder: "Name",
-            screenSize: 6
           }),
-        ]
+        ],
       }),
     ],
-  }
+  },
 };

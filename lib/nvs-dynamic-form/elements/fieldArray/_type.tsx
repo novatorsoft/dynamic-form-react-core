@@ -1,20 +1,7 @@
-import * as Yup from "yup";
-import { FieldBase } from "../../../types";
+import { IField } from "../field";
+import { ArrayField } from "../../../types";
 
-export class ArrayField {
-    fieldType?: string = "fieldArray";
-    id!: string;
-    fields: Array<FieldBase<unknown>>;
-    defaultValue: any[];
-    validate?: Yup.AnySchema;
-    screenSize?: any
-
-    constructor(options: ArrayField) {
-        this.id = options.id;
-        this.fieldType = options.fieldType
-        this.fields = options.fields ?? [];
-        this.defaultValue = options.defaultValue;
-        this.validate = options.validate;
-        this.screenSize = options.screenSize;
-    }
+export interface IFieldArray extends IField {
+  field: ArrayField;
+  buttonComponent: React.FC<any>;
 }

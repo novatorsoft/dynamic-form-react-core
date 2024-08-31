@@ -2,15 +2,15 @@ import { ISubmitButton } from "./_type";
 import React from "react";
 
 export const SubmitButton = ({
-  submitButton,
+  button,
   submitButtonVisible = true,
-  submitButtonLabel = submitButton.defaultOptions.label,
-  submitButtonIsFullWidth = submitButton.defaultOptions.isFullWidth,
-  submitButtonPosition = submitButton.defaultOptions.position,
+  submitButtonLabel = button.defaultOptions.label,
+  submitButtonIsFullWidth = button.defaultOptions.isFullWidth,
+  submitButtonPosition = button.defaultOptions.position,
   submitButtonContainerClass,
 }: ISubmitButton) => {
   const getSubmitButtonComponent = () => {
-    const SubmitButton = submitButton.component;
+    const SubmitButton = button.component;
     return <SubmitButton>{submitButtonLabel}</SubmitButton>;
   };
 

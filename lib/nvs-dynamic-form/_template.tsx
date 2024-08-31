@@ -1,7 +1,7 @@
 import "nvs-flexgrid";
 import "./_style.css";
 
-import { FieldBase, GroupFields } from "../types";
+import { ArrayField, FieldBase, GroupFields } from "../types";
 import { FieldType, INvsDynamicForm } from "./_type";
 import React, { ReactNode } from "react";
 
@@ -15,7 +15,7 @@ export const NvsDynamicForm = ({
   formElements = {},
   fields = [],
   formClass,
-  submitButton,
+  button,
   submitButtonVisible,
   submitButtonLabel,
   submitButtonIsFullWidth,
@@ -27,15 +27,15 @@ export const NvsDynamicForm = ({
   useContainersOutsideGroup = false,
   useGroupContainer = false,
 }: INvsDynamicForm) => {
-  const createFormElement = (field: FieldBase<unknown>) => {
-    if (field.fieldType === 'fieldArray')
-      return <FieldArray field={field} formElements={formElements} />
+  const createFormElement = (field: FieldBase<unknown> | ArrayField) => {
+    if (field.fieldType === "fieldArray")
+      return <FieldArray buttonComponent={button.component} field={field as ArrayField} formElements={formElements} />;
     return <Field key={field.id} formElements={formElements} field={field} />;
   };
 
   const createFormElements = (
     fields: Array<FieldType>,
-    groupId?: string
+    groupId?: string,
   ): JSX.Element[] => {
     const fieldsElements = [];
     for (const field of fields) {
@@ -46,7 +46,7 @@ export const NvsDynamicForm = ({
           createFormElement({
             ...field,
             id: groupId ? `${groupId}.${field.id}` : field.id,
-          })
+          }),
         );
       }
     }
@@ -80,7 +80,7 @@ export const NvsDynamicForm = ({
 
   const createFormElementGroupContainer = (
     formContent: ReactNode,
-    containerProps = containerOptions
+    containerProps = containerOptions,
   ) => {
     return <CustomContainer {...containerProps}>{formContent}</CustomContainer>;
   };
@@ -92,10 +92,10 @@ export const NvsDynamicForm = ({
     return subFormGroupFields.map((groupField: GroupFields) =>
       createFormElementGroupContainer(
         createFormContentContainer(
-          createFormElements(groupField.fields ?? [], groupField.id)
+          createFormElements(groupField.fields ?? [], groupField.id),
         ),
-        groupField.containerOptions ?? containerOptions
-      )
+        groupField.containerOptions ?? containerOptions,
+      ),
     );
   };
 
@@ -106,7 +106,7 @@ export const NvsDynamicForm = ({
   const createFormContent = () => {
     const parentFormFields = getParentFormElements();
     const parentContainer = createFormContentContainer(
-      createFormElements(parentFormFields)
+      createFormElements(parentFormFields),
     );
     const groupContainers = createSubFormElementGroupContainers();
 
@@ -127,7 +127,7 @@ export const NvsDynamicForm = ({
         <>
           {parentContainer}
           {groupContainers}
-        </>
+        </>,
       );
 
     return formContent;
@@ -137,7 +137,7 @@ export const NvsDynamicForm = ({
     <FormikForm onSubmit={onSubmit} fields={fields} formClass={formClass}>
       {createFormContent()}
       <SubmitButton
-        submitButton={submitButton}
+        button={button}
         submitButtonVisible={submitButtonVisible}
         submitButtonLabel={submitButtonLabel}
         submitButtonIsFullWidth={submitButtonIsFullWidth}
