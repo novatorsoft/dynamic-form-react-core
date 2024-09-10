@@ -5,20 +5,21 @@ import { FieldBase, GroupFields } from "../types";
 import { FieldType, INvsDynamicForm } from "./_type";
 import React, { ReactNode } from "react";
 
+import { Button } from "./elements/button";
 import { Field } from "./elements/field";
 import { FormikForm } from "./formikForm";
-import { SubmitButton } from "./elements/submit-button";
 
 export const NvsDynamicForm = ({
   onSubmit,
   formElements = {},
   fields = [],
   formClass,
-  submitButton,
-  submitButtonVisible,
-  submitButtonLabel,
-  submitButtonIsFullWidth,
-  submitButtonPosition,
+  buttonComponent,
+  submitButtonDefaultOptions,
+  submitButtonVisible = true,
+  submitButtonLabel = submitButtonDefaultOptions.label,
+  submitButtonIsFullWidth = submitButtonDefaultOptions.isFullWidth,
+  submitButtonPosition = submitButtonDefaultOptions.position,
   submitButtonContainerClass,
   container: CustomContainer = ({ children }) => <>{children}</>,
   containerVisible = false,
@@ -133,13 +134,13 @@ export const NvsDynamicForm = ({
   const formikForm = (
     <FormikForm onSubmit={onSubmit} fields={fields} formClass={formClass}>
       {createFormContent()}
-      <SubmitButton
-        submitButton={submitButton}
-        submitButtonVisible={submitButtonVisible}
-        submitButtonLabel={submitButtonLabel}
-        submitButtonIsFullWidth={submitButtonIsFullWidth}
-        submitButtonPosition={submitButtonPosition}
-        submitButtonContainerClass={submitButtonContainerClass}
+      <Button
+        buttonComponent={buttonComponent}
+        visible={submitButtonVisible}
+        label={submitButtonLabel}
+        isFullWidth={submitButtonIsFullWidth}
+        position={submitButtonPosition}
+        containerClass={submitButtonContainerClass}
       />
     </FormikForm>
   );

@@ -58,14 +58,12 @@ export const Default: { args: INvsDynamicForm; name: string } = {
     submitButtonLabel: "Save",
     submitButtonVisible: true,
     submitButtonPosition: "right",
-    submitButton: {
-      component: ButtonComponent,
-      defaultOptions: {
-        label: "Save",
-        isFullWidth: true,
-        position: "right",
-      },
+    submitButtonDefaultOptions: {
+      label: "Save",
+      isFullWidth: true,
+      position: "right",
     },
+    buttonComponent: ButtonComponent,
     formElements: {
       textbox: {
         component: TextboxElement,
@@ -115,14 +113,12 @@ export const Group: { args: INvsDynamicForm; name: string } = {
     submitButtonLabel: "Save",
     submitButtonVisible: true,
     submitButtonPosition: "right",
-    submitButton: {
-      component: ButtonComponent,
-      defaultOptions: {
-        label: "Save",
-        isFullWidth: true,
-        position: "right",
-      },
+    submitButtonDefaultOptions: {
+      label: "Save",
+      isFullWidth: true,
+      position: "right",
     },
+    buttonComponent: ButtonComponent,
     formElements: {
       textbox: {
         component: TextboxElement,
@@ -183,10 +179,6 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
     onSubmit: (values) => {
       alert(JSON.stringify(values));
     },
-    submitButtonIsFullWidth: false,
-    submitButtonLabel: "Save",
-    submitButtonVisible: true,
-    submitButtonPosition: "right",
     container: Container,
     containerVisible: true,
     useGroupContainer: true,
@@ -194,14 +186,12 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
     containerOptions: {
       title: "Title",
     },
-    submitButton: {
-      component: ButtonComponent,
-      defaultOptions: {
-        label: "Save",
-        isFullWidth: true,
-        position: "right",
-      },
+    submitButtonDefaultOptions: {
+      label: "Save",
+      isFullWidth: true,
+      position: "right",
     },
+    buttonComponent: ButtonComponent,
     formElements: {
       textbox: {
         component: TextboxElement,
