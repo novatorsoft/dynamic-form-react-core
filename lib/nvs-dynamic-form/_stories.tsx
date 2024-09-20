@@ -184,7 +184,7 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
     useGroupContainer: true,
     useContainersOutsideGroup: true,
     containerOptions: {
-      title: "Title",
+      title: "Personal Information",
     },
     submitButtonDefaultOptions: {
       label: "Save",
@@ -225,6 +225,10 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
       }),
       new GroupFields({
         id: "contact",
+        containerVisible: true,
+        containerOptions: {
+          title: "Contact Information",
+        },
         fields: [
           new TextboxField({
             id: "emailAddress",
