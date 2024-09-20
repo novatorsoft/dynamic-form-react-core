@@ -1,15 +1,10 @@
-import { FieldBase, GroupFields } from "../../../types";
+import { GroupFields } from "../../../types";
+import { IField } from "../field";
 
-export interface IGroupField {
+export interface IGroupField extends IField {
   field: GroupFields;
   containerComponent: React.FC<any>;
   containerVisible: boolean;
   useContainersOutsideGroup: boolean;
   useGroupContainer: boolean;
-  formElements: {
-    [key: string]: {
-      component: React.FC<any>;
-      class: typeof FieldBase<any>;
-    };
-  };
 }
