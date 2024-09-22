@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.5.0...v2.0.0) (2024-09-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename fields
+* submit button structure has been changed
+
+### Features
+
+* add container property ([1c7f654](https://github.com/@nvs-dynamic-form/react-core/commit/1c7f654b29937e494c5af7514bb18b7a4be34d05))
+* add field array property ([18ad718](https://github.com/@nvs-dynamic-form/react-core/commit/18ad718b90ef412e6c5327f3813da2316fe9ce93))
+* add group property ([eb41fe1](https://github.com/@nvs-dynamic-form/react-core/commit/eb41fe12504623ce6ae83bd7e296d4de02c10c0e))
+* create formik form component ([d8f7125](https://github.com/@nvs-dynamic-form/react-core/commit/d8f7125320c4cac1576337e8e29ce4c94473c555))
+* rename fields ([ad27d5a](https://github.com/@nvs-dynamic-form/react-core/commit/ad27d5adde55c996bc2deae376e0fbe2810dc5a5))
+* submit button structure has been changed ([813f0bd](https://github.com/@nvs-dynamic-form/react-core/commit/813f0bd9b38cc82446fe60ac55c7db463f7219e4))
+* update form creation structure ([040d4d9](https://github.com/@nvs-dynamic-form/react-core/commit/040d4d90553c69bea897d5df8a52b65b93d8f13c))
+
 ## [1.5.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.4.1...v1.5.0) (2024-07-07)
 
 
