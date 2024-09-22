@@ -298,6 +298,9 @@ export const FieldArray: { args: INvsDynamicForm; name: string } = {
         class: TextboxField,
       },
     },
+    addButtonDefaultOptions: {
+      label: "ismet",
+    },
     fields: [
       new TextboxField({
         id: "firstName",
@@ -323,12 +326,8 @@ export const FieldArray: { args: INvsDynamicForm; name: string } = {
       }),
       new ArrayField({
         id: "addresses",
-        removeButtonOptions: {
-          label: "-",
-          position: "right",
-        },
         addButtonOptions: {
-          label: "+",
+          label: "Add Address",
         },
         defaultValues: [
           { cityName: "İzmir", districtName: "Göztepe" },

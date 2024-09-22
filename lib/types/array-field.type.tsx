@@ -16,12 +16,8 @@ export class ArrayField<ValueType = { [key: string]: any }> {
   constructor(options: ArrayField<ValueType>) {
     this.id = options.id;
     this.fields = options.fields ?? [];
-    this.addButtonOptions = new ArrayFieldAddButton(
-      options.addButtonOptions ?? {},
-    );
-    this.removeButtonOptions = new ArrayFieldRemoveButton(
-      options.removeButtonOptions ?? {},
-    );
+    this.addButtonOptions = options.addButtonOptions ?? {};
+    this.removeButtonOptions = options.removeButtonOptions ?? {};
     this.defaultValues = options.defaultValues ?? [];
   }
 }

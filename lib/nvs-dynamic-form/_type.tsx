@@ -1,5 +1,7 @@
 import {
   ArrayField,
+  ArrayFieldAddButton,
+  ArrayFieldRemoveButton,
   FieldBase,
   GroupField,
   ISubmitButtonDefaultOptions,
@@ -18,11 +20,13 @@ export interface INvsDynamicForm extends Omit<IField, "field"> {
   containerVisible?: boolean;
   useContainersOutsideGroup?: boolean;
   useGroupContainer?: boolean;
-  buttonComponent?: React.FC<any>;
+  buttonComponent: React.FC<any>;
   submitButtonDefaultOptions: ISubmitButtonDefaultOptions;
   submitButtonVisible?: boolean;
   submitButtonLabel?: string;
   submitButtonPosition?: "left" | "center" | "right";
   submitButtonIsFullWidth?: boolean;
   submitButtonContainerClass?: string;
+  addButtonDefaultOptions?: ArrayFieldAddButton;
+  removeButtonDefaultOptions?: ArrayFieldRemoveButton;
 }

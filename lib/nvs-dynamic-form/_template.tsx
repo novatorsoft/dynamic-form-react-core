@@ -24,6 +24,8 @@ export const NvsDynamicForm = ({
   containerOptions = {},
   useContainersOutsideGroup = false,
   useGroupContainer = false,
+  addButtonDefaultOptions,
+  removeButtonDefaultOptions,
 }: INvsDynamicForm) => {
   const generateFormContentUtils = new GenerateFormContentUtils({
     containerComponent: container,
@@ -34,6 +36,8 @@ export const NvsDynamicForm = ({
     fields,
     containerOptions,
     buttonComponent,
+    fieldArrayAddButtonDefaultOptions: addButtonDefaultOptions,
+    fieldArrayRemoveButtonDefaultOptions: removeButtonDefaultOptions,
   });
 
   const formikForm = (

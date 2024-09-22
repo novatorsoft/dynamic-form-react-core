@@ -1,4 +1,9 @@
-import { ArrayField, FieldBase, GroupField } from "../../types";
+import {
+  ArrayField,
+  ArrayFieldAddButton,
+  FieldBase,
+  GroupField,
+} from "../../types";
 
 import { ArrayField as ArrayFieldElement } from "../elements/arrayField";
 import { Container } from "../elements/container";
@@ -18,6 +23,8 @@ export class GenerateFormContentUtils {
   private readonly fields: Array<FieldType>;
   private readonly containerOptions: { [key: string]: any };
   private readonly buttonComponent?: React.FC<any>;
+  private readonly fieldArrayAddButtonDefaultOptions: ArrayFieldAddButton;
+  private readonly fieldArrayRemoveButtonDefaultOptions: ArrayFieldAddButton;
 
   constructor({
     containerComponent,
@@ -28,6 +35,8 @@ export class GenerateFormContentUtils {
     fields,
     containerOptions,
     buttonComponent,
+    fieldArrayAddButtonDefaultOptions,
+    fieldArrayRemoveButtonDefaultOptions,
   }: {
     containerComponent: React.FC<any>;
     formElements: IFormElement;
@@ -37,6 +46,8 @@ export class GenerateFormContentUtils {
     fields: Array<FieldType>;
     buttonComponent?: React.FC<any>;
     containerOptions?: { [key: string]: any };
+    fieldArrayAddButtonDefaultOptions?: ArrayFieldAddButton;
+    fieldArrayRemoveButtonDefaultOptions?: ArrayFieldAddButton;
   }) {
     this.containerComponent = containerComponent;
     this.formElements = formElements;
@@ -44,8 +55,12 @@ export class GenerateFormContentUtils {
     this.useGroupContainer = useGroupContainer;
     this.containerVisible = containerVisible;
     this.fields = fields;
-    this.containerOptions = containerOptions || {};
+    this.containerOptions = containerOptions ?? {};
     this.buttonComponent = buttonComponent;
+    this.fieldArrayAddButtonDefaultOptions =
+      fieldArrayAddButtonDefaultOptions ?? {};
+    this.fieldArrayRemoveButtonDefaultOptions =
+      fieldArrayRemoveButtonDefaultOptions ?? {};
   }
 
   createContainer(content: ReactNode, containerProps: object) {
@@ -76,7 +91,7 @@ export class GenerateFormContentUtils {
         <>
           {singleFields}
           {groupFields}
-        </>,
+        </>
       );
 
     return formContent;
@@ -154,6 +169,8 @@ export class GenerateFormContentUtils {
         useGroupContainer={this.useGroupContainer}
         containerVisible={this.containerVisible}
         buttonComponent={this.buttonComponent!}
+        addButtonDefaultOptions={this.fieldArrayAddButtonDefaultOptions}
+        removeButtonDefaultOptions={this.fieldArrayRemoveButtonDefaultOptions}
       />
     );
   }

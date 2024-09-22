@@ -1,4 +1,9 @@
-import { ArrayField } from "../../../types";
+import {
+  ArrayField,
+  ArrayFieldAddButton,
+  ArrayFieldRemoveButton,
+} from "../../../types";
+
 import { IField } from "../field";
 
 export interface IArrayField extends IField {
@@ -8,4 +13,6 @@ export interface IArrayField extends IField {
   containerVisible: boolean;
   useContainersOutsideGroup: boolean;
   useGroupContainer: boolean;
+  addButtonDefaultOptions?: ArrayFieldAddButton;
+  removeButtonDefaultOptions?: ArrayFieldRemoveButton;
 }

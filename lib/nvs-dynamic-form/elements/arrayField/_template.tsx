@@ -1,7 +1,11 @@
+import * as lodash from "lodash";
+
+import { ArrayFieldAddButton, ArrayFieldRemoveButton } from "../../../types";
+import React, { useState } from "react";
+
 import { FieldArray } from "formik";
 import { GenerateFormContentUtils } from "../../services/generateFormContentUtils";
 import { IArrayField } from "./_type";
-import React from "react";
 
 export const ArrayField: React.FC<IArrayField> = ({
   field: arrayField,
@@ -11,7 +15,25 @@ export const ArrayField: React.FC<IArrayField> = ({
   useContainersOutsideGroup,
   useGroupContainer,
   buttonComponent: ButtonComponent,
-}) => {
+  addButtonDefaultOptions,
+  removeButtonDefaultOptions,
+}: IArrayField) => {
+  const [addButtonOptions] = useState(
+    new ArrayFieldAddButton(
+      lodash.merge(
+        addButtonDefaultOptions ?? {},
+        arrayField.addButtonOptions ?? {}
+      )
+    )
+  );
+  const [removeButtonOptions] = useState(
+    new ArrayFieldRemoveButton(
+      lodash.merge(
+        removeButtonDefaultOptions ?? {},
+        arrayField.removeButtonOptions ?? {}
+      )
+    )
+  );
   const generateFormContentUtils = new GenerateFormContentUtils({
     containerComponent,
     formElements,
@@ -19,6 +41,8 @@ export const ArrayField: React.FC<IArrayField> = ({
     useGroupContainer,
     containerVisible: containerVisible,
     fields: arrayField.fields,
+    fieldArrayAddButtonDefaultOptions: addButtonDefaultOptions,
+    fieldArrayRemoveButtonDefaultOptions: removeButtonDefaultOptions,
   });
 
   const createArrayItem = (name: string, index: number) => {
@@ -41,7 +65,7 @@ export const ArrayField: React.FC<IArrayField> = ({
         <div className="nvs-container-fluid">
           <div className="nvs-row">
             {generateFormContentUtils.createFormElements(
-              createArrayItem(arrayField.id, index),
+              createArrayItem(arrayField.id, index)
             )}
           </div>
         </div>
@@ -57,8 +81,9 @@ export const ArrayField: React.FC<IArrayField> = ({
             onRemoveItem();
           }}
           type="button"
+          {...removeButtonOptions.options}
         >
-          {arrayField.removeButtonOptions?.label}
+          {removeButtonOptions.label}
         </ButtonComponent>
       </div>
     );
@@ -68,7 +93,7 @@ export const ArrayField: React.FC<IArrayField> = ({
     return (
       <div className="df-array-field-remove-button">
         {generateFormContentUtils.createContentContainer(
-          createRemoveButton(onRemoveItem),
+          createRemoveButton(onRemoveItem)
         )}
       </div>
     );
@@ -76,11 +101,11 @@ export const ArrayField: React.FC<IArrayField> = ({
 
   const createFieldArrayContent = (
     onRemoveItem: (index: number) => void,
-    index: number,
+    index: number
   ) => {
     return (
       <div
-        className={`df-array-field remove-button-${arrayField.removeButtonOptions?.position}`}
+        className={`df-array-field remove-button-${removeButtonOptions.position}`}
         key={index}
       >
         {createArrayFields(index)}
@@ -95,8 +120,9 @@ export const ArrayField: React.FC<IArrayField> = ({
         <ButtonComponent
           onClick={() => onAddItem(getDefaultItem())}
           type="button"
+          {...addButtonOptions.options}
         >
-          {arrayField.addButtonOptions?.label}
+          {addButtonOptions.label}
         </ButtonComponent>
       </div>
     );
@@ -104,7 +130,7 @@ export const ArrayField: React.FC<IArrayField> = ({
 
   const createArrayItemAddButton = (onAddItem: Function) => {
     return generateFormContentUtils.createContentContainer(
-      createAddButton(onAddItem),
+      createAddButton(onAddItem)
     );
   };
 
@@ -113,7 +139,7 @@ export const ArrayField: React.FC<IArrayField> = ({
       {({ push, remove, form }) => (
         <>
           {form.values[arrayField.id]?.map((_: any, index: number) =>
-            createFieldArrayContent(remove, index),
+            createFieldArrayContent(remove, index)
           )}
           {createArrayItemAddButton(push)}
         </>
