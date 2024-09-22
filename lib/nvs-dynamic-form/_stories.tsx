@@ -2,16 +2,24 @@ import { INvsDynamicForm, NvsDynamicForm } from ".";
 import * as Yup from "yup";
 
 import React, { ChangeEvent } from "react";
-import { FieldBase, GroupFields } from "../types";
+import { ArrayField, FieldBase, GroupFields } from "../types";
 
 export default {
   component: NvsDynamicForm,
   title: "Nvs Dynamic Form",
 };
 
-const ButtonComponent = ({ children }: { children: string }) => {
+const ButtonComponent = ({
+  children,
+  type = "submit",
+  onClick = () => {},
+}: {
+  children: string;
+  type: "submit" | "reset" | "button";
+  onClick?: () => void;
+}) => {
   return (
-    <button style={{ width: "100%" }} type="submit">
+    <button onClick={onClick} style={{ width: "100%" }} type={type}>
       {children}
     </button>
   );
@@ -255,6 +263,84 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
             label: "City Name",
             placeholder: "Enter your city name",
             screenSize: 6,
+          }),
+          new TextboxField({
+            id: "districtName",
+            label: "district Name",
+            placeholder: "Enter your district name",
+            screenSize: 6,
+          }),
+        ],
+      }),
+    ],
+  },
+};
+
+export const FieldArray: { args: INvsDynamicForm; name: string } = {
+  name: "Field Array Example",
+  args: {
+    onSubmit: (values) => {
+      alert(JSON.stringify(values));
+    },
+    submitButtonIsFullWidth: false,
+    submitButtonLabel: "Save",
+    submitButtonVisible: true,
+    submitButtonPosition: "right",
+    submitButtonDefaultOptions: {
+      label: "Save",
+      isFullWidth: true,
+      position: "right",
+    },
+    buttonComponent: ButtonComponent,
+    formElements: {
+      textbox: {
+        component: TextboxElement,
+        class: TextboxField,
+      },
+    },
+    fields: [
+      new TextboxField({
+        id: "firstName",
+        placeholder: "Enter your first name",
+        defaultValue: "ismet",
+        validate: Yup.string().required(),
+        onChange: (event) => {
+          console.log((event as ChangeEvent<HTMLInputElement>).target.value);
+        },
+        screenSize: {
+          desktop: 6,
+          mobile: 6,
+        },
+      }),
+      new TextboxField({
+        id: "lastName",
+        placeholder: "Enter your last name",
+        validate: Yup.string().required(),
+        screenSize: {
+          desktop: 6,
+          mobile: 6,
+        },
+      }),
+      new ArrayField({
+        id: "addresses",
+        removeButtonOptions: {
+          label: "-",
+          position: "right",
+        },
+        addButtonOptions: {
+          label: "+",
+        },
+        defaultValues: [
+          { cityName: "İzmir", districtName: "Göztepe" },
+          { cityName: "İstanbul", districtName: "Kadıköy" },
+        ],
+        fields: [
+          new TextboxField({
+            id: "cityName",
+            label: "City Name",
+            placeholder: "Enter your city name",
+            screenSize: 6,
+            validate: Yup.string().required(),
           }),
           new TextboxField({
             id: "districtName",

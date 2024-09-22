@@ -1,5 +1,6 @@
-import { FieldBase, GroupFields } from "../../types";
+import { ArrayField, FieldBase, GroupFields } from "../../types";
 
+import { ArrayField as ArrayFieldElement } from "../elements/arrayField";
 import { Container } from "../elements/container";
 import { Field } from "../elements/field";
 import { FieldType } from "../_type";
@@ -16,6 +17,7 @@ export class GenerateFormContentUtils {
   private readonly containerVisible: boolean;
   private readonly fields: Array<FieldType>;
   private readonly containerOptions: { [key: string]: any };
+  private readonly buttonComponent?: React.FC<any>;
 
   constructor({
     containerComponent,
@@ -25,6 +27,7 @@ export class GenerateFormContentUtils {
     containerVisible,
     fields,
     containerOptions,
+    buttonComponent,
   }: {
     containerComponent: React.FC<any>;
     formElements: IFormElement;
@@ -32,6 +35,7 @@ export class GenerateFormContentUtils {
     useGroupContainer: boolean;
     containerVisible: boolean;
     fields: Array<FieldType>;
+    buttonComponent?: React.FC<any>;
     containerOptions?: { [key: string]: any };
   }) {
     this.containerComponent = containerComponent;
@@ -41,6 +45,7 @@ export class GenerateFormContentUtils {
     this.containerVisible = containerVisible;
     this.fields = fields;
     this.containerOptions = containerOptions || {};
+    this.buttonComponent = buttonComponent;
   }
 
   createContainer(content: ReactNode, containerProps: object) {
@@ -82,14 +87,14 @@ export class GenerateFormContentUtils {
     for (const field of fields) {
       if (field instanceof GroupFields)
         fieldsElements.push(this.createGroupFieldElement(field));
-      else {
-        fieldsElements.push(this.createSingleFieldElement(field));
-      }
+      else if (field instanceof ArrayField)
+        fieldsElements.push(this.createArrayFieldElement(field));
+      else fieldsElements.push(this.createSingleFieldElement(field));
     }
     return fieldsElements;
   }
 
-  private createFormContentContainer(formElements: ReactNode) {
+  createContentContainer(formElements: ReactNode) {
     return (
       <div className="nvs-container-fluid">
         <div className="nvs-row">{formElements}</div>
@@ -109,7 +114,7 @@ export class GenerateFormContentUtils {
     const singleFields = this.getSingleFields();
     return (
       singleFields.length > 0 &&
-      this.createFormContentContainer(this.createFormElements(singleFields))
+      this.createContentContainer(this.createFormElements(singleFields))
     );
   }
 
@@ -134,6 +139,21 @@ export class GenerateFormContentUtils {
         useContainersOutsideGroup={this.useContainersOutsideGroup}
         useGroupContainer={this.useGroupContainer}
         containerVisible={this.containerVisible}
+      />
+    );
+  }
+
+  private createArrayFieldElement(field: ArrayField) {
+    return (
+      <ArrayFieldElement
+        key={field.id}
+        formElements={this.formElements}
+        field={field}
+        containerComponent={this.containerComponent}
+        useContainersOutsideGroup={this.useContainersOutsideGroup}
+        useGroupContainer={this.useGroupContainer}
+        containerVisible={this.containerVisible}
+        buttonComponent={this.buttonComponent!}
       />
     );
   }

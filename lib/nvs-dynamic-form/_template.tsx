@@ -1,12 +1,11 @@
 import "nvs-flexgrid";
 import "./_style.css";
 
-import React, { ReactNode } from "react";
-
 import { Button } from "./elements/button";
 import { FormikForm } from "./formikForm";
 import { GenerateFormContentUtils } from "./services/generateFormContentUtils";
 import { INvsDynamicForm } from "./_type";
+import React from "react";
 
 export const NvsDynamicForm = ({
   onSubmit,
@@ -34,6 +33,7 @@ export const NvsDynamicForm = ({
     containerVisible,
     fields,
     containerOptions,
+    buttonComponent,
   });
 
   const formikForm = (

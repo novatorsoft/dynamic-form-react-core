@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-import { DynamicObject, GroupFields } from "../../types";
+import { ArrayField, DynamicObject, FieldBase, GroupFields } from "../../types";
 import { Form, FormikProvider, useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 
@@ -14,9 +14,13 @@ export const FormikForm = ({
   formClass,
 }: IFormikForm) => {
   const getFieldDefaultValue = (field: FieldType) => {
-    return field instanceof GroupFields
-      ? getFieldsDefaultValues(field.fields!)
-      : field.defaultValue;
+    let defaultValue;
+    if (field instanceof ArrayField) defaultValue = field.defaultValues ?? [];
+    else if (field instanceof GroupFields)
+      defaultValue = getFieldsDefaultValues(field.fields!);
+    else defaultValue = field.defaultValue;
+
+    return defaultValue;
   };
 
   const getFieldsDefaultValues = (fields: Array<FieldType>): DynamicObject => {
@@ -27,11 +31,14 @@ export const FormikForm = ({
   };
 
   const getFieldValidate = (field: FieldType) => {
-    if (field instanceof GroupFields) {
-      return createValidateSchema(field.fields!);
-    } else if (field?.validate) {
-      return field.validate;
-    }
+    let validate;
+    if (field instanceof GroupFields)
+      validate = createValidateSchema(field.fields!);
+    else if (field instanceof ArrayField)
+      validate = createArrayValidateSchema(field.fields!);
+    else if (field?.validate) validate = field.validate;
+
+    return validate;
   };
 
   const createValidateSchema = (fields: Array<FieldType>) => {
@@ -44,6 +51,10 @@ export const FormikForm = ({
       {}
     );
     return Yup.object(validationSchema);
+  };
+
+  const createArrayValidateSchema = (fields: Array<FieldBase<any>>) => {
+    return Yup.array().of(createValidateSchema(fields));
   };
 
   const [defaultValues, setDefaultValues] = useState(
