@@ -1,4 +1,4 @@
-import { ISubmitButton } from "./_type";
+import { IButton } from "./_type";
 import React from "react";
 
 export const Button = ({
@@ -8,7 +8,7 @@ export const Button = ({
   position = "right",
   isFullWidth,
   containerClass,
-}: ISubmitButton) => {
+}: IButton) => {
   const getButtonPositionClass = (position: "left" | "right" | "center") => {
     const classes = {
       left: "nvs-jc-start",

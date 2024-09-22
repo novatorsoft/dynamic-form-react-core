@@ -1,12 +1,12 @@
-import { FieldBase } from "./form-field.type";
+import { FieldBase } from "./field-base.type";
 
-export class GroupFields {
+export class GroupField {
   id!: string;
   fields: Array<FieldBase<unknown>>;
   containerVisible?: boolean;
   containerOptions?: { [key: string]: any };
 
-  constructor(options: GroupFields) {
+  constructor(options: GroupField) {
     this.id = options.id;
     this.fields = options.fields ?? [];
     this.containerVisible = options.containerVisible ?? false;

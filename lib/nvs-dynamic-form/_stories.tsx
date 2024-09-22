@@ -2,7 +2,7 @@ import { INvsDynamicForm, NvsDynamicForm } from ".";
 import * as Yup from "yup";
 
 import React, { ChangeEvent } from "react";
-import { ArrayField, FieldBase, GroupFields } from "../types";
+import { ArrayField, FieldBase, GroupField } from "../types";
 
 export default {
   component: NvsDynamicForm,
@@ -158,7 +158,7 @@ export const Group: { args: INvsDynamicForm; name: string } = {
           mobile: 6,
         },
       }),
-      new GroupFields({
+      new GroupField({
         id: "contact",
         fields: [
           new TextboxField({
@@ -231,7 +231,7 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
           mobile: 6,
         },
       }),
-      new GroupFields({
+      new GroupField({
         id: "contact",
         containerVisible: true,
         containerOptions: {
@@ -254,7 +254,7 @@ export const GroupAndContainer: { args: INvsDynamicForm; name: string } = {
           }),
         ],
       }),
-      new GroupFields({
+      new GroupField({
         id: "location",
         containerVisible: false,
         fields: [

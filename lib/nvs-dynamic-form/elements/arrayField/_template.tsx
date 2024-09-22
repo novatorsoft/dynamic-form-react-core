@@ -41,7 +41,7 @@ export const ArrayField: React.FC<IArrayField> = ({
         <div className="nvs-container-fluid">
           <div className="nvs-row">
             {generateFormContentUtils.createFormElements(
-              createArrayItem(arrayField.id, index)
+              createArrayItem(arrayField.id, index),
             )}
           </div>
         </div>
@@ -68,7 +68,7 @@ export const ArrayField: React.FC<IArrayField> = ({
     return (
       <div className="df-array-field-remove-button">
         {generateFormContentUtils.createContentContainer(
-          createRemoveButton(onRemoveItem)
+          createRemoveButton(onRemoveItem),
         )}
       </div>
     );
@@ -76,7 +76,7 @@ export const ArrayField: React.FC<IArrayField> = ({
 
   const createFieldArrayContent = (
     onRemoveItem: (index: number) => void,
-    index: number
+    index: number,
   ) => {
     return (
       <div
@@ -104,7 +104,7 @@ export const ArrayField: React.FC<IArrayField> = ({
 
   const createArrayItemAddButton = (onAddItem: Function) => {
     return generateFormContentUtils.createContentContainer(
-      createAddButton(onAddItem)
+      createAddButton(onAddItem),
     );
   };
 
@@ -113,7 +113,7 @@ export const ArrayField: React.FC<IArrayField> = ({
       {({ push, remove, form }) => (
         <>
           {form.values[arrayField.id]?.map((_: any, index: number) =>
-            createFieldArrayContent(remove, index)
+            createFieldArrayContent(remove, index),
           )}
           {createArrayItemAddButton(push)}
         </>

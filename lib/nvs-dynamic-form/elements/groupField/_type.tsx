@@ -1,8 +1,8 @@
-import { GroupFields } from "../../../types";
+import { GroupField } from "../../../types";
 import { IField } from "../field";
 
 export interface IGroupField extends IField {
-  field: GroupFields;
+  field: GroupField;
   containerComponent: React.FC<any>;
   containerVisible: boolean;
   useContainersOutsideGroup: boolean;

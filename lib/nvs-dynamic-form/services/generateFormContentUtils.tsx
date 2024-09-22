@@ -1,10 +1,10 @@
-import { ArrayField, FieldBase, GroupFields } from "../../types";
+import { ArrayField, FieldBase, GroupField } from "../../types";
 
 import { ArrayField as ArrayFieldElement } from "../elements/arrayField";
 import { Container } from "../elements/container";
 import { Field } from "../elements/field";
 import { FieldType } from "../_type";
-import { GroupField } from "../elements/groupField";
+import { GroupField as GroupFieldElement } from "../elements/groupField";
 import { IFormElement } from "../elements/field";
 import React from "react";
 import { ReactNode } from "react";
@@ -76,7 +76,7 @@ export class GenerateFormContentUtils {
         <>
           {singleFields}
           {groupFields}
-        </>
+        </>,
       );
 
     return formContent;
@@ -85,7 +85,7 @@ export class GenerateFormContentUtils {
   createFormElements(fields: Array<FieldType>): JSX.Element[] {
     const fieldsElements = [];
     for (const field of fields) {
-      if (field instanceof GroupFields)
+      if (field instanceof GroupField)
         fieldsElements.push(this.createGroupFieldElement(field));
       else if (field instanceof ArrayField)
         fieldsElements.push(this.createArrayFieldElement(field));
@@ -129,9 +129,9 @@ export class GenerateFormContentUtils {
     );
   }
 
-  private createGroupFieldElement(field: GroupFields) {
+  private createGroupFieldElement(field: GroupField) {
     return (
-      <GroupField
+      <GroupFieldElement
         key={field.id}
         formElements={this.formElements}
         field={field}
@@ -160,7 +160,7 @@ export class GenerateFormContentUtils {
 
   private isSingleField(field: FieldType) {
     return !(
-      field instanceof GroupFields &&
+      field instanceof GroupField &&
       field.containerVisible &&
       this.useGroupContainer &&
       this.containerVisible

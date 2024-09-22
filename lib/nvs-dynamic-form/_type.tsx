@@ -1,9 +1,14 @@
-import { FieldBase, GroupFields, ISubmitButtonDefaultOptions } from "../types";
+import {
+  ArrayField,
+  FieldBase,
+  GroupField,
+  ISubmitButtonDefaultOptions,
+} from "../types";
 
 import { IButton } from "./elements/button/_type";
 import { IField } from "./elements/field";
 
-export type FieldType = FieldBase<any> | GroupFields;
+export type FieldType = FieldBase<any> | GroupField | ArrayField<any>;
 
 export interface INvsDynamicForm extends IButton, Omit<IField, "field"> {
   onSubmit?: ((values: unknown) => void) | ((values: unknown) => Promise<void>);

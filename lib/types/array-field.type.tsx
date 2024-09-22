@@ -3,7 +3,7 @@ import {
   ArrayFieldRemoveButton,
 } from "./array-field-action-button.type";
 
-import { FieldBase } from "./form-field.type";
+import { FieldBase } from "./field-base.type";
 
 export class ArrayField<ValueType = { [key: string]: any }> {
   fieldType?: string = "fieldArray";
@@ -17,10 +17,10 @@ export class ArrayField<ValueType = { [key: string]: any }> {
     this.id = options.id;
     this.fields = options.fields ?? [];
     this.addButtonOptions = new ArrayFieldAddButton(
-      options.addButtonOptions ?? {}
+      options.addButtonOptions ?? {},
     );
     this.removeButtonOptions = new ArrayFieldRemoveButton(
-      options.removeButtonOptions ?? {}
+      options.removeButtonOptions ?? {},
     );
     this.defaultValues = options.defaultValues ?? [];
   }
