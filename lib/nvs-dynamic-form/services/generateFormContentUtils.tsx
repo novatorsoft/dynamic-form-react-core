@@ -176,6 +176,7 @@ export class GenerateFormContentUtils {
         buttonComponent={this.buttonComponent!}
         addButtonDefaultOptions={this.fieldArrayAddButtonDefaultOptions}
         removeButtonDefaultOptions={this.fieldArrayRemoveButtonDefaultOptions}
+        labelDefaultOptions={this.labelDefaultOptions}
       />
     );
   }

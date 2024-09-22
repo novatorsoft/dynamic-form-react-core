@@ -27,22 +27,22 @@ export const ArrayField: React.FC<IArrayField> = ({
     new ArrayFieldAddButton(
       lodash.merge(
         addButtonDefaultOptions ?? {},
-        arrayField.addButtonOptions ?? {}
-      )
-    )
+        arrayField.addButtonOptions ?? {},
+      ),
+    ),
   );
   const [removeButtonOptions] = useState(
     new ArrayFieldRemoveButton(
       lodash.merge(
         removeButtonDefaultOptions ?? {},
-        arrayField.removeButtonOptions ?? {}
-      )
-    )
+        arrayField.removeButtonOptions ?? {},
+      ),
+    ),
   );
   const [labelOptions] = useState(
     new LabelOptions(
-      lodash.merge(labelDefaultOptions ?? {}, arrayField.labelOptions ?? {})
-    )
+      lodash.merge(labelDefaultOptions ?? {}, arrayField.labelOptions ?? {}),
+    ),
   );
   const generateFormContentUtils = new GenerateFormContentUtils({
     containerComponent,
@@ -75,7 +75,7 @@ export const ArrayField: React.FC<IArrayField> = ({
         <div className="nvs-container-fluid">
           <div className="nvs-row">
             {generateFormContentUtils.createFormElements(
-              createArrayItem(arrayField.id, index)
+              createArrayItem(arrayField.id, index),
             )}
           </div>
         </div>
@@ -103,7 +103,7 @@ export const ArrayField: React.FC<IArrayField> = ({
     return (
       <div className="df-array-field-remove-button">
         {generateFormContentUtils.createContentContainer(
-          createRemoveButton(onRemoveItem)
+          createRemoveButton(onRemoveItem),
         )}
       </div>
     );
@@ -111,7 +111,7 @@ export const ArrayField: React.FC<IArrayField> = ({
 
   const createFieldArrayContent = (
     onRemoveItem: (index: number) => void,
-    index: number
+    index: number,
   ) => {
     return (
       <div
@@ -140,7 +140,7 @@ export const ArrayField: React.FC<IArrayField> = ({
 
   const createArrayItemAddButton = (onAddItem: Function) => {
     return generateFormContentUtils.createContentContainer(
-      createAddButton(onAddItem)
+      createAddButton(onAddItem),
     );
   };
 
@@ -150,7 +150,7 @@ export const ArrayField: React.FC<IArrayField> = ({
         <label className={`df-array-field-label ${labelOptions.class}`}>
           {arrayField.label}
         </label>
-      </div>
+      </div>,
     );
   };
 
@@ -160,7 +160,7 @@ export const ArrayField: React.FC<IArrayField> = ({
         <>
           {arrayField.label && createArrayFieldLabel()}
           {form.values[arrayField.id]?.map((_: any, index: number) =>
-            createFieldArrayContent(remove, index)
+            createFieldArrayContent(remove, index),
           )}
           {createArrayItemAddButton(push)}
         </>
