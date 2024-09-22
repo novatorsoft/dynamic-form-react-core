@@ -5,6 +5,7 @@ import {
   FieldBase,
   GroupField,
   ISubmitButtonDefaultOptions,
+  LabelOptions,
 } from "../types";
 
 import { IField } from "./elements/field";
@@ -29,4 +30,5 @@ export interface INvsDynamicForm extends Omit<IField, "field"> {
   submitButtonContainerClass?: string;
   addButtonDefaultOptions?: ArrayFieldAddButton;
   removeButtonDefaultOptions?: ArrayFieldRemoveButton;
+  labelDefaultOptions?: LabelOptions;
 }

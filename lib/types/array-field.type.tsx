@@ -4,6 +4,7 @@ import {
 } from "./array-field-action-button.type";
 
 import { FieldBase } from "./field-base.type";
+import { LabelOptions } from "./label-options.type";
 
 export class ArrayField<ValueType = { [key: string]: any }> {
   fieldType?: string = "fieldArray";
@@ -12,6 +13,8 @@ export class ArrayField<ValueType = { [key: string]: any }> {
   addButtonOptions?: ArrayFieldAddButton;
   removeButtonOptions?: ArrayFieldRemoveButton;
   defaultValues?: Array<ValueType>;
+  label?: string;
+  labelOptions?: LabelOptions;
 
   constructor(options: ArrayField<ValueType>) {
     this.id = options.id;
@@ -19,5 +22,7 @@ export class ArrayField<ValueType = { [key: string]: any }> {
     this.addButtonOptions = options.addButtonOptions ?? {};
     this.removeButtonOptions = options.removeButtonOptions ?? {};
     this.defaultValues = options.defaultValues ?? [];
+    this.label = options.label;
+    this.labelOptions = options.labelOptions ?? {};
   }
 }

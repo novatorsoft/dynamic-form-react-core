@@ -2,6 +2,7 @@ import {
   ArrayField,
   ArrayFieldAddButton,
   ArrayFieldRemoveButton,
+  LabelOptions,
 } from "../../../types";
 
 import { IField } from "../field";
@@ -15,4 +16,5 @@ export interface IArrayField extends IField {
   useGroupContainer: boolean;
   addButtonDefaultOptions?: ArrayFieldAddButton;
   removeButtonDefaultOptions?: ArrayFieldRemoveButton;
+  labelDefaultOptions?: LabelOptions;
 }

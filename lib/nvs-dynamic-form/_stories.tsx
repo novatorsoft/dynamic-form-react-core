@@ -298,9 +298,6 @@ export const FieldArray: { args: INvsDynamicForm; name: string } = {
         class: TextboxField,
       },
     },
-    addButtonDefaultOptions: {
-      label: "ismet",
-    },
     fields: [
       new TextboxField({
         id: "firstName",
@@ -326,6 +323,7 @@ export const FieldArray: { args: INvsDynamicForm; name: string } = {
       }),
       new ArrayField({
         id: "addresses",
+        label: "Addresses",
         addButtonOptions: {
           label: "Add Address",
         },

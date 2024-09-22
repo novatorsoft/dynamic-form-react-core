@@ -3,6 +3,7 @@ import {
   ArrayFieldAddButton,
   FieldBase,
   GroupField,
+  LabelOptions,
 } from "../../types";
 
 import { ArrayField as ArrayFieldElement } from "../elements/arrayField";
@@ -25,6 +26,7 @@ export class GenerateFormContentUtils {
   private readonly buttonComponent?: React.FC<any>;
   private readonly fieldArrayAddButtonDefaultOptions: ArrayFieldAddButton;
   private readonly fieldArrayRemoveButtonDefaultOptions: ArrayFieldAddButton;
+  private readonly labelDefaultOptions: LabelOptions;
 
   constructor({
     containerComponent,
@@ -37,6 +39,7 @@ export class GenerateFormContentUtils {
     buttonComponent,
     fieldArrayAddButtonDefaultOptions,
     fieldArrayRemoveButtonDefaultOptions,
+    labelDefaultOptions,
   }: {
     containerComponent: React.FC<any>;
     formElements: IFormElement;
@@ -48,6 +51,7 @@ export class GenerateFormContentUtils {
     containerOptions?: { [key: string]: any };
     fieldArrayAddButtonDefaultOptions?: ArrayFieldAddButton;
     fieldArrayRemoveButtonDefaultOptions?: ArrayFieldAddButton;
+    labelDefaultOptions?: LabelOptions;
   }) {
     this.containerComponent = containerComponent;
     this.formElements = formElements;
@@ -61,6 +65,7 @@ export class GenerateFormContentUtils {
       fieldArrayAddButtonDefaultOptions ?? {};
     this.fieldArrayRemoveButtonDefaultOptions =
       fieldArrayRemoveButtonDefaultOptions ?? {};
+    this.labelDefaultOptions = labelDefaultOptions ?? {};
   }
 
   createContainer(content: ReactNode, containerProps: object) {

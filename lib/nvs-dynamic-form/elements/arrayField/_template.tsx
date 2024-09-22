@@ -1,6 +1,10 @@
 import * as lodash from "lodash";
 
-import { ArrayFieldAddButton, ArrayFieldRemoveButton } from "../../../types";
+import {
+  ArrayFieldAddButton,
+  ArrayFieldRemoveButton,
+  LabelOptions,
+} from "../../../types";
 import React, { useState } from "react";
 
 import { FieldArray } from "formik";
@@ -17,6 +21,7 @@ export const ArrayField: React.FC<IArrayField> = ({
   buttonComponent: ButtonComponent,
   addButtonDefaultOptions,
   removeButtonDefaultOptions,
+  labelDefaultOptions,
 }: IArrayField) => {
   const [addButtonOptions] = useState(
     new ArrayFieldAddButton(
@@ -32,6 +37,11 @@ export const ArrayField: React.FC<IArrayField> = ({
         removeButtonDefaultOptions ?? {},
         arrayField.removeButtonOptions ?? {}
       )
+    )
+  );
+  const [labelOptions] = useState(
+    new LabelOptions(
+      lodash.merge(labelDefaultOptions ?? {}, arrayField.labelOptions ?? {})
     )
   );
   const generateFormContentUtils = new GenerateFormContentUtils({
@@ -134,10 +144,21 @@ export const ArrayField: React.FC<IArrayField> = ({
     );
   };
 
+  const createArrayFieldLabel = () => {
+    return generateFormContentUtils.createContentContainer(
+      <div className="nvs-col-12">
+        <label className={`df-array-field-label ${labelOptions.class}`}>
+          {arrayField.label}
+        </label>
+      </div>
+    );
+  };
+
   return (
     <FieldArray name={arrayField.id}>
       {({ push, remove, form }) => (
         <>
+          {arrayField.label && createArrayFieldLabel()}
           {form.values[arrayField.id]?.map((_: any, index: number) =>
             createFieldArrayContent(remove, index)
           )}
