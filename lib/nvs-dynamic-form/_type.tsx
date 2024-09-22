@@ -5,12 +5,11 @@ import {
   ISubmitButtonDefaultOptions,
 } from "../types";
 
-import { IButton } from "./elements/button/_type";
 import { IField } from "./elements/field";
 
 export type FieldType = FieldBase<any> | GroupField | ArrayField<any>;
 
-export interface INvsDynamicForm extends IButton, Omit<IField, "field"> {
+export interface INvsDynamicForm extends Omit<IField, "field"> {
   onSubmit?: ((values: unknown) => void) | ((values: unknown) => Promise<void>);
   fields: Array<FieldType>;
   formClass?: string;
@@ -19,6 +18,7 @@ export interface INvsDynamicForm extends IButton, Omit<IField, "field"> {
   containerVisible?: boolean;
   useContainersOutsideGroup?: boolean;
   useGroupContainer?: boolean;
+  buttonComponent?: React.FC<any>;
   submitButtonDefaultOptions: ISubmitButtonDefaultOptions;
   submitButtonVisible?: boolean;
   submitButtonLabel?: string;
