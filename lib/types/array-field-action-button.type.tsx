@@ -10,11 +10,13 @@ export class ArrayFieldButton {
 
 export class ArrayFieldRemoveButton extends ArrayFieldButton {
   position?: "bottom" | "right";
+  visible?: boolean;
 
   constructor(options: ArrayFieldRemoveButton) {
     options.label = options.label ?? "-";
     super(options);
     this.position = options.position ?? "right";
+    this.visible = options.visible ?? true;
   }
 }
 
