@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.0.0...v2.1.0) (2024-09-22)
+
+
+### Features
+
+* add default values for array action buttons ([9571fef](https://github.com/@nvs-dynamic-form/react-core/commit/9571fefe6216a89eb1d1f7cd994928d170b0ab8b))
+
 ## [2.0.0](https://github.com/@nvs-dynamic-form/react-core/compare/v1.5.0...v2.0.0) (2024-09-22)
 
 
