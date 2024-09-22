@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/@nvs-dynamic-form/react-core/compare/v2.2.0...v2.2.1) (2024-09-22)
+
+
+### Bug Fixes
+
+* fix for label options ([1e314d1](https://github.com/@nvs-dynamic-form/react-core/commit/1e314d173f7d2a2523aa1696d7cbb88ebc0affe0))
+
 ## [2.2.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.1.0...v2.2.0) (2024-09-22)
 
 
