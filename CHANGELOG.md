@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.1.0...v2.2.0) (2024-09-22)
+
+
+### Features
+
+* add label property in array field ([6c702cc](https://github.com/@nvs-dynamic-form/react-core/commit/6c702ccc6320a06860af5abd357e14d72410b2dd))
+
 ## [2.1.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.0.0...v2.1.0) (2024-09-22)
 
 
