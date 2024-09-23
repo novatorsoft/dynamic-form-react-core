@@ -1,3 +1,5 @@
+import * as Yup from "yup";
+
 import {
   ArrayFieldAddButton,
   ArrayFieldRemoveButton,
@@ -15,6 +17,7 @@ export class ArrayField<ValueType = { [key: string]: any }> {
   defaultValues?: Array<ValueType>;
   label?: string;
   labelOptions?: LabelOptions;
+  validate?: Yup.ArraySchema<any, any>;
 
   constructor(options: ArrayField<ValueType>) {
     this.id = options.id;
@@ -24,5 +27,6 @@ export class ArrayField<ValueType = { [key: string]: any }> {
     this.defaultValues = options.defaultValues ?? [];
     this.label = options.label;
     this.labelOptions = options.labelOptions ?? {};
+    this.validate = options.validate ?? Yup.array();
   }
 }

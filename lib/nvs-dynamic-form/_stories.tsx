@@ -304,9 +304,6 @@ export const FieldArray: { args: INvsDynamicForm; name: string } = {
         placeholder: "Enter your first name",
         defaultValue: "ismet",
         validate: Yup.string().required(),
-        onChange: (event) => {
-          console.log((event as ChangeEvent<HTMLInputElement>).target.value);
-        },
         screenSize: {
           desktop: 6,
           mobile: 6,
@@ -315,7 +312,6 @@ export const FieldArray: { args: INvsDynamicForm; name: string } = {
       new TextboxField({
         id: "lastName",
         placeholder: "Enter your last name",
-        validate: Yup.string().required(),
         screenSize: {
           desktop: 6,
           mobile: 6,
@@ -331,6 +327,7 @@ export const FieldArray: { args: INvsDynamicForm; name: string } = {
           { cityName: "İzmir", districtName: "Göztepe" },
           { cityName: "İstanbul", districtName: "Kadıköy" },
         ],
+        validate: Yup.array().min(2).max(3),
         fields: [
           new TextboxField({
             id: "cityName",

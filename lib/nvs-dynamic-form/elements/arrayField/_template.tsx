@@ -5,11 +5,12 @@ import {
   ArrayFieldRemoveButton,
   LabelOptions,
 } from "../../../types";
+import { FieldArray, FormikProps } from "formik";
 import React, { useState } from "react";
 
-import { FieldArray } from "formik";
 import { GenerateFormContentUtils } from "../../services/generateFormContentUtils";
 import { IArrayField } from "./_type";
+import { List } from "../list/_template";
 
 export const ArrayField: React.FC<IArrayField> = ({
   field: arrayField,
@@ -109,10 +110,7 @@ export const ArrayField: React.FC<IArrayField> = ({
     );
   };
 
-  const createFieldArrayContent = (
-    onRemoveItem: (index: number) => void,
-    index: number
-  ) => {
+  const createFieldArrayContent = (onRemoveItem: Function, index: number) => {
     return (
       <div
         className={`df-array-field remove-button-${removeButtonOptions.position}`}
@@ -155,6 +153,28 @@ export const ArrayField: React.FC<IArrayField> = ({
     );
   };
 
+  const checkFieldArrayMaxSize = (length: number) => {
+    const maxSize = arrayField
+      .validate!.describe()
+      .tests.find((test) => test.name === "max")?.params!.max as number;
+
+    return maxSize && length < maxSize;
+  };
+
+  const getArrayFieldErrorMessage = (
+    form: FormikProps<any>
+  ): string | undefined => {
+    let error = form.errors[arrayField.id];
+    if (lodash.isArray(error)) error = error.at(0);
+    if (!lodash.isString(error)) error = undefined;
+    return error;
+  };
+
+  const createErrorList = (form: FormikProps<any>) => {
+    const error = getArrayFieldErrorMessage(form);
+    return error && <List items={[error]} />;
+  };
+
   return (
     <FieldArray name={arrayField.id}>
       {({ push, remove, form }) => (
@@ -163,7 +183,9 @@ export const ArrayField: React.FC<IArrayField> = ({
           {form.values[arrayField.id]?.map((_: any, index: number) =>
             createFieldArrayContent(remove, index)
           )}
-          {createArrayItemAddButton(push)}
+          {checkFieldArrayMaxSize(form.values[arrayField.id].length) &&
+            createArrayItemAddButton(push)}
+          {createErrorList(form)}
         </>
       )}
     </FieldArray>
