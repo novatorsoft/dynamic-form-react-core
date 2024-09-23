@@ -6,12 +6,12 @@ import {
   LabelOptions,
 } from "../../types";
 
-import { ArrayField as ArrayFieldElement } from "../elements/arrayField";
-import { Container } from "../elements/container";
-import { Field } from "../elements/field";
+import { ArrayField as ArrayFieldElement } from "../components/arrayField";
+import { Container } from "../components/container";
+import { Field } from "../components/field";
 import { FieldType } from "../_type";
-import { GroupField as GroupFieldElement } from "../elements/groupField";
-import { IFormElement } from "../elements/field";
+import { GroupField as GroupFieldElement } from "../components/groupField";
+import { IFormElement } from "../components/field";
 import React from "react";
 import { ReactNode } from "react";
 
@@ -96,7 +96,7 @@ export class GenerateFormContentUtils {
         <>
           {singleFields}
           {groupFields}
-        </>
+        </>,
       );
 
     return formContent;

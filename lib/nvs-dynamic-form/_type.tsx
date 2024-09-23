@@ -8,7 +8,7 @@ import {
   LabelOptions,
 } from "../types";
 
-import { IField } from "./elements/field";
+import { IField } from "./components/field";
 
 export type FieldType = FieldBase<any> | GroupField | ArrayField<any>;
 

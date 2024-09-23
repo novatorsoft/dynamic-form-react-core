@@ -48,7 +48,7 @@ export const FormikForm = ({
         if (validate) acc[field.id] = validate;
         return acc;
       },
-      {}
+      {},
     );
     return Yup.object(validationSchema);
   };
@@ -58,11 +58,11 @@ export const FormikForm = ({
   };
 
   const [defaultValues, setDefaultValues] = useState(
-    getFieldsDefaultValues(fields)
+    getFieldsDefaultValues(fields),
   );
 
   const [validateSchema, setValidateSchema] = useState(
-    createValidateSchema(fields)
+    createValidateSchema(fields),
   );
 
   useEffect(() => {

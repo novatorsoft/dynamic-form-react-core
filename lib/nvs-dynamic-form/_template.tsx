@@ -1,7 +1,7 @@
 import "nvs-flexgrid";
 import "./_style.css";
 
-import { Button } from "./elements/button";
+import { Button } from "./components/button";
 import { FormikForm } from "./formikForm";
 import { GenerateFormContentUtils } from "./services/generateFormContentUtils";
 import { INvsDynamicForm } from "./_type";
