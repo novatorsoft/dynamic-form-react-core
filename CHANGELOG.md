@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.2.1...v2.3.0) (2024-09-23)
+
+
+### Features
+
+* add validate in field array ([738352a](https://github.com/@nvs-dynamic-form/react-core/commit/738352a4cf30c5319da6e7ec1d229662445f3c7b))
+* add visible field in remove button ([84d9df7](https://github.com/@nvs-dynamic-form/react-core/commit/84d9df7670b922d4214054fa9bd97bf4123e09af))
+* create list component ([39401a0](https://github.com/@nvs-dynamic-form/react-core/commit/39401a04a724d2f5d4b75ae7b149b49c6d0444e5))
+
 ### [2.2.1](https://github.com/@nvs-dynamic-form/react-core/compare/v2.2.0...v2.2.1) (2024-09-22)
 
 
