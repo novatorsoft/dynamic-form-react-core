@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/@nvs-dynamic-form/react-core/compare/v2.3.0...v2.3.1) (2024-09-23)
+
+
+### Bug Fixes
+
+* fix for field array validate ([c74a3b7](https://github.com/@nvs-dynamic-form/react-core/commit/c74a3b7c7fff32aebe9c57a6b63b6a124c465c6b))
+
 ## [2.3.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.2.1...v2.3.0) (2024-09-23)
 
 
