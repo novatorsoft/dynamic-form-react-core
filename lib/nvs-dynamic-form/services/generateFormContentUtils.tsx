@@ -96,7 +96,7 @@ export class GenerateFormContentUtils {
         <>
           {singleFields}
           {groupFields}
-        </>
+        </>,
       );
 
     return formContent;

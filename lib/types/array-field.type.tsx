@@ -18,6 +18,8 @@ export class ArrayField<ValueType = { [key: string]: any }> {
   label?: string;
   labelOptions?: LabelOptions;
   validate?: Yup.ArraySchema<any, any>;
+  containerVisible?: boolean;
+  containerOptions?: Record<string, any>;
 
   constructor(options: ArrayField<ValueType>) {
     this.id = options.id;
@@ -28,5 +30,7 @@ export class ArrayField<ValueType = { [key: string]: any }> {
     this.label = options.label;
     this.labelOptions = options.labelOptions ?? {};
     this.validate = options.validate ?? Yup.array();
+    this.containerVisible = options.containerVisible ?? false;
+    this.containerOptions = options.containerOptions ?? {};
   }
 }

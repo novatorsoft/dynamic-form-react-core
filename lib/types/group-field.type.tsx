@@ -4,7 +4,7 @@ export class GroupField {
   id!: string;
   fields: Array<FieldBase<unknown>>;
   containerVisible?: boolean;
-  containerOptions?: { [key: string]: any };
+  containerOptions?: Record<string, any>;
 
   constructor(options: GroupField) {
     this.id = options.id;
