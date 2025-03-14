@@ -16,5 +16,5 @@
     "target": "es2020"
   },
   "include": ["lib/**/*.ts", "lib/**/*.tsx"],
-  "exclude": ["lib/**/*_stories.tsx"]
+  "exclude": ["lib/**/stories/**"]
 }
