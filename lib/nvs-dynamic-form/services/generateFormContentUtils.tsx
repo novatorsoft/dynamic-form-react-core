@@ -96,7 +96,7 @@ export class GenerateFormContentUtils {
         <>
           {singleFields}
           {groupFields}
-        </>,
+        </>
       );
 
     return formContent;
@@ -183,7 +183,7 @@ export class GenerateFormContentUtils {
 
   private isSingleField(field: FieldType) {
     return !(
-      field instanceof GroupField &&
+      (field instanceof GroupField || field instanceof ArrayField) &&
       field.containerVisible &&
       this.useGroupContainer &&
       this.containerVisible
