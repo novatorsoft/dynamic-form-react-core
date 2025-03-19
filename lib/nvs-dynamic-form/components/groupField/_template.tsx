@@ -1,6 +1,6 @@
 import { GenerateFormContentUtils } from "../../services/generateFormContentUtils";
 import { IGroupField } from "./_type";
-import { useMemo } from "react";
+import { useCallback } from "react";
 
 export const GroupField = ({
   field: groupField,
@@ -10,7 +10,7 @@ export const GroupField = ({
   useContainersOutsideGroup,
   useGroupContainer,
 }: IGroupField) => {
-  const mapGroupFieldsIds = useMemo(() => {
+  const mapGroupFieldsIds = useCallback(() => {
     return groupField.fields.map((field) => {
       field.id = `${groupField.id}.${field.id}`;
       return field;
@@ -24,7 +24,7 @@ export const GroupField = ({
     useGroupContainer,
     containerOptions: groupField.containerOptions,
     containerVisible: containerVisible && groupField.containerVisible!,
-    fields: mapGroupFieldsIds,
+    fields: groupField.fields,
   });
 
   const isContainerVisible = () => {
@@ -33,5 +33,5 @@ export const GroupField = ({
 
   return isContainerVisible()
     ? generateFormContentUtils.createFormContent()
-    : generateFormContentUtils.createFormElements(mapGroupFieldsIds);
+    : generateFormContentUtils.createFormElements(mapGroupFieldsIds());
 };
