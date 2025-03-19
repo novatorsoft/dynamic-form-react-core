@@ -188,10 +188,10 @@ export const ArrayField: React.FC<IArrayField> = ({
       {({ push, remove, form }) => (
         <>
           {arrayField.label && createArrayFieldLabel()}
-          {form.values[arrayField.id]?.map((_: any, index: number) =>
+          {lodash.get(form.values,arrayField.id)?.map((_: any, index: number) =>
             createFieldArrayContent(remove, index),
           )}
-          {checkFieldArrayMaxSize(form.values[arrayField.id].length) &&
+          {checkFieldArrayMaxSize(lodash.get(form.values,arrayField.id)?.length) &&
             createArrayItemAddButton(push)}
           {createErrorList(form)}
         </>
