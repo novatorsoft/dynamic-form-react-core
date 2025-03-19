@@ -7,4 +7,5 @@ export interface IGroupField extends IField {
   containerVisible: boolean;
   useContainersOutsideGroup: boolean;
   useGroupContainer: boolean;
+  buttonComponent?: React.FC<any>;
 }

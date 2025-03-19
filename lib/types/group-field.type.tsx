@@ -1,8 +1,8 @@
-import { FieldBase } from "./field-base.type";
+import { FieldType } from "../nvs-dynamic-form";
 
 export class GroupField {
   id!: string;
-  fields: Array<FieldBase<unknown> | GroupField>;
+  fields: Array<FieldType>;
   containerVisible?: boolean;
   containerOptions?: Record<string, any>;
 

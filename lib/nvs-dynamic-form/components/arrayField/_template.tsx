@@ -6,11 +6,11 @@ import {
   LabelOptions,
 } from "../../../types";
 import { FieldArray, FormikProps } from "formik";
-import React, { useState } from "react";
+import React, { useState, ReactNode, useCallback } from "react";
 
-import { GenerateFormContentUtils } from "../../services/generateFormContentUtils";
 import { IArrayField } from "./_type";
 import { List } from "../list/_template";
+import { Elements } from "../elements";
 
 export const ArrayField: React.FC<IArrayField> = ({
   field: arrayField,
@@ -24,43 +24,44 @@ export const ArrayField: React.FC<IArrayField> = ({
   removeButtonDefaultOptions,
   labelDefaultOptions,
 }: IArrayField) => {
+  const createArrayItem = useCallback(
+    (index: number) => {
+      return lodash.cloneDeep(arrayField.fields).map((field) => {
+        field.id = `${arrayField.id}[${index}].${field.id}`;
+        return field;
+      });
+    },
+    [arrayField.fields],
+  );
+
   const [addButtonOptions] = useState(
     new ArrayFieldAddButton(
       lodash.merge(
         addButtonDefaultOptions ?? {},
-        arrayField.addButtonOptions ?? {}
-      )
-    )
+        arrayField.addButtonOptions ?? {},
+      ),
+    ),
   );
   const [removeButtonOptions] = useState(
     new ArrayFieldRemoveButton(
       lodash.merge(
         removeButtonDefaultOptions ?? {},
-        arrayField.removeButtonOptions ?? {}
-      )
-    )
+        arrayField.removeButtonOptions ?? {},
+      ),
+    ),
   );
   const [labelOptions] = useState(
     new LabelOptions(
-      lodash.merge(labelDefaultOptions ?? {}, arrayField.labelOptions ?? {})
-    )
+      lodash.merge(labelDefaultOptions ?? {}, arrayField.labelOptions ?? {}),
+    ),
   );
-  const generateFormContentUtils = new GenerateFormContentUtils({
-    containerComponent,
-    formElements,
-    useContainersOutsideGroup,
-    useGroupContainer,
-    containerVisible: containerVisible,
-    fields: arrayField.fields,
-    fieldArrayAddButtonDefaultOptions: addButtonDefaultOptions,
-    fieldArrayRemoveButtonDefaultOptions: removeButtonDefaultOptions,
-  });
 
-  const createArrayItem = (name: string, index: number) => {
-    return arrayField.fields.map((field) => {
-      field.id = `${name}[${index}].${field.id}`;
-      return field;
-    });
+  const ContentContainer = ({ children }: { children: ReactNode }) => {
+    return (
+      <div className="nvs-container-fluid">
+        <div className="nvs-row">{children}</div>
+      </div>
+    );
   };
 
   const getDefaultItem = () => {
@@ -75,9 +76,18 @@ export const ArrayField: React.FC<IArrayField> = ({
       <div className="df-array-field-content">
         <div className="nvs-container-fluid">
           <div className="nvs-row">
-            {generateFormContentUtils.createFormElements(
-              createArrayItem(arrayField.id, index)
-            )}
+            <Elements
+              fields={createArrayItem(index)}
+              formElements={formElements}
+              containerComponent={containerComponent}
+              useContainersOutsideGroup={useContainersOutsideGroup}
+              useGroupContainer={useGroupContainer}
+              containerVisible={containerVisible}
+              buttonComponent={ButtonComponent}
+              fieldArrayAddButtonDefaultOptions={addButtonDefaultOptions}
+              fieldArrayRemoveButtonDefaultOptions={removeButtonDefaultOptions}
+              labelDefaultOptions={labelDefaultOptions}
+            />
           </div>
         </div>
       </div>
@@ -103,9 +113,7 @@ export const ArrayField: React.FC<IArrayField> = ({
   const createArrayItemRemoveButton = (onRemoveItem: Function) => {
     return (
       <div className="df-array-field-remove-button">
-        {generateFormContentUtils.createContentContainer(
-          createRemoveButton(onRemoveItem)
-        )}
+        <ContentContainer>{createRemoveButton(onRemoveItem)}</ContentContainer>
       </div>
     );
   };
@@ -138,18 +146,18 @@ export const ArrayField: React.FC<IArrayField> = ({
   };
 
   const createArrayItemAddButton = (onAddItem: Function) => {
-    return generateFormContentUtils.createContentContainer(
-      createAddButton(onAddItem)
-    );
+    return <ContentContainer>{createAddButton(onAddItem)}</ContentContainer>;
   };
 
   const createArrayFieldLabel = () => {
-    return generateFormContentUtils.createContentContainer(
-      <div className="nvs-col-12">
-        <label className={`df-array-field-label ${labelOptions.class}`}>
-          {arrayField.label}
-        </label>
-      </div>
+    return (
+      <ContentContainer>
+        <div className="nvs-col-12">
+          <label className={`df-array-field-label ${labelOptions.class}`}>
+            {arrayField.label}
+          </label>
+        </div>
+      </ContentContainer>
     );
   };
 
@@ -162,7 +170,7 @@ export const ArrayField: React.FC<IArrayField> = ({
   };
 
   const getArrayFieldErrorMessage = (
-    form: FormikProps<any>
+    form: FormikProps<any>,
   ): string | undefined => {
     let error = form.errors[arrayField.id];
     if (lodash.isArray(error)) error = error.at(0);
@@ -181,7 +189,7 @@ export const ArrayField: React.FC<IArrayField> = ({
         <>
           {arrayField.label && createArrayFieldLabel()}
           {form.values[arrayField.id]?.map((_: any, index: number) =>
-            createFieldArrayContent(remove, index)
+            createFieldArrayContent(remove, index),
           )}
           {checkFieldArrayMaxSize(form.values[arrayField.id].length) &&
             createArrayItemAddButton(push)}

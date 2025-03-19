@@ -3,9 +3,10 @@ import "./_style.css";
 
 import { Button } from "./components/button";
 import { FormikForm } from "./formikForm";
-import { GenerateFormContentUtils } from "./services/generateFormContentUtils";
 import { INvsDynamicForm } from "./_type";
 import React from "react";
+import { FormBuilder } from "./components/formBuilder";
+import { Container } from "./components/container";
 
 export const NvsDynamicForm = ({
   onSubmit,
@@ -27,22 +28,20 @@ export const NvsDynamicForm = ({
   addButtonDefaultOptions,
   removeButtonDefaultOptions,
 }: INvsDynamicForm) => {
-  const generateFormContentUtils = new GenerateFormContentUtils({
-    containerComponent: container,
-    formElements,
-    useContainersOutsideGroup,
-    useGroupContainer,
-    containerVisible,
-    fields,
-    containerOptions,
-    buttonComponent,
-    fieldArrayAddButtonDefaultOptions: addButtonDefaultOptions,
-    fieldArrayRemoveButtonDefaultOptions: removeButtonDefaultOptions,
-  });
-
   const formikForm = (
     <FormikForm onSubmit={onSubmit} fields={fields} formClass={formClass}>
-      {generateFormContentUtils.createFormContent()}
+      <FormBuilder
+        containerComponent={container}
+        formElements={formElements}
+        useContainersOutsideGroup={useContainersOutsideGroup}
+        useGroupContainer={useGroupContainer}
+        containerVisible={containerVisible}
+        fields={fields}
+        buttonComponent={buttonComponent}
+        containerOptions={containerOptions}
+        fieldArrayAddButtonDefaultOptions={addButtonDefaultOptions}
+        fieldArrayRemoveButtonDefaultOptions={removeButtonDefaultOptions}
+      />
       <Button
         buttonComponent={buttonComponent}
         visible={submitButtonVisible}
@@ -54,7 +53,11 @@ export const NvsDynamicForm = ({
     </FormikForm>
   );
 
-  return containerVisible && !useContainersOutsideGroup
-    ? generateFormContentUtils.createContainer(formikForm, containerOptions)
-    : formikForm;
+  return containerVisible && !useContainersOutsideGroup ? (
+    <Container containerComponent={container} options={containerOptions}>
+      {formikForm}
+    </Container>
+  ) : (
+    formikForm
+  );
 };

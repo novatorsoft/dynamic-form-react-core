@@ -1,6 +1,8 @@
-import { GenerateFormContentUtils } from "../../services/generateFormContentUtils";
+import React, { useState } from "react";
+
+import { Elements } from "../elements";
+import { FormBuilder } from "../formBuilder";
 import { IGroupField } from "./_type";
-import { useCallback } from "react";
 
 export const GroupField = ({
   field: groupField,
@@ -9,29 +11,42 @@ export const GroupField = ({
   containerVisible,
   useContainersOutsideGroup,
   useGroupContainer,
+  buttonComponent,
 }: IGroupField) => {
-  const mapGroupFieldsIds = useCallback(() => {
-    return groupField.fields.map((field) => {
+  const [fields, _] = useState(
+    groupField.fields.map((field) => {
       field.id = `${groupField.id}.${field.id}`;
       return field;
-    });
-  }, []);
-
-  const generateFormContentUtils = new GenerateFormContentUtils({
-    containerComponent,
-    formElements,
-    useContainersOutsideGroup,
-    useGroupContainer,
-    containerOptions: groupField.containerOptions,
-    containerVisible: containerVisible && groupField.containerVisible!,
-    fields: groupField.fields,
-  });
+    })
+  );
 
   const isContainerVisible = () => {
     return groupField.containerVisible && useGroupContainer && containerVisible;
   };
 
-  return isContainerVisible()
-    ? generateFormContentUtils.createFormContent()
-    : generateFormContentUtils.createFormElements(mapGroupFieldsIds());
+  return (
+    fields &&
+    (isContainerVisible() ? (
+      <FormBuilder
+        containerComponent={containerComponent}
+        formElements={formElements}
+        useContainersOutsideGroup={useContainersOutsideGroup}
+        useGroupContainer={useGroupContainer}
+        containerOptions={groupField.containerOptions}
+        containerVisible={containerVisible}
+        fields={fields}
+        buttonComponent={buttonComponent}
+      />
+    ) : (
+      <Elements
+        fields={fields}
+        containerComponent={containerComponent}
+        formElements={formElements}
+        useContainersOutsideGroup={useContainersOutsideGroup}
+        useGroupContainer={useGroupContainer}
+        containerVisible={containerVisible}
+        buttonComponent={buttonComponent}
+      />
+    ))
+  );
 };
