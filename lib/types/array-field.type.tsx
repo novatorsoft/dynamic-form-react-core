@@ -5,13 +5,13 @@ import {
   ArrayFieldRemoveButton,
 } from "./array-field-action-button.type";
 
-import { FieldBase } from "./field-base.type";
+import { FieldType } from "../nvs-dynamic-form";
 import { LabelOptions } from "./label-options.type";
 
 export class ArrayField<ValueType = { [key: string]: any }> {
   fieldType?: string = "fieldArray";
   id!: string;
-  fields: Array<FieldBase<any>>;
+  fields: Array<FieldType>;
   addButtonOptions?: ArrayFieldAddButton;
   removeButtonOptions?: ArrayFieldRemoveButton;
   defaultValues?: Array<ValueType>;

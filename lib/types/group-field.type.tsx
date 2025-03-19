@@ -2,7 +2,7 @@ import { FieldBase } from "./field-base.type";
 
 export class GroupField {
   id!: string;
-  fields: Array<FieldBase<unknown>>;
+  fields: Array<FieldBase<unknown> | GroupField>;
   containerVisible?: boolean;
   containerOptions?: Record<string, any>;
 
