@@ -6,11 +6,11 @@ import {
   LabelOptions,
 } from "../../../types";
 import { FieldArray, FormikProps } from "formik";
-import React, { useState, ReactNode, useCallback } from "react";
+import React, { ReactNode, useCallback, useState } from "react";
 
+import { Elements } from "../elements";
 import { IArrayField } from "./_type";
 import { List } from "../list/_template";
-import { Elements } from "../elements";
 
 export const ArrayField: React.FC<IArrayField> = ({
   field: arrayField,
@@ -31,29 +31,29 @@ export const ArrayField: React.FC<IArrayField> = ({
         return field;
       });
     },
-    [arrayField.fields],
+    [arrayField.fields]
   );
 
   const [addButtonOptions] = useState(
     new ArrayFieldAddButton(
       lodash.merge(
         addButtonDefaultOptions ?? {},
-        arrayField.addButtonOptions ?? {},
-      ),
-    ),
+        arrayField.addButtonOptions ?? {}
+      )
+    )
   );
   const [removeButtonOptions] = useState(
     new ArrayFieldRemoveButton(
       lodash.merge(
         removeButtonDefaultOptions ?? {},
-        arrayField.removeButtonOptions ?? {},
-      ),
-    ),
+        arrayField.removeButtonOptions ?? {}
+      )
+    )
   );
   const [labelOptions] = useState(
     new LabelOptions(
-      lodash.merge(labelDefaultOptions ?? {}, arrayField.labelOptions ?? {}),
-    ),
+      lodash.merge(labelDefaultOptions ?? {}, arrayField.labelOptions ?? {})
+    )
   );
 
   const ContentContainer = ({ children }: { children: ReactNode }) => {
@@ -170,7 +170,7 @@ export const ArrayField: React.FC<IArrayField> = ({
   };
 
   const getArrayFieldErrorMessage = (
-    form: FormikProps<any>,
+    form: FormikProps<any>
   ): string | undefined => {
     let error = form.errors[arrayField.id];
     if (lodash.isArray(error)) error = error.at(0);
@@ -188,11 +188,14 @@ export const ArrayField: React.FC<IArrayField> = ({
       {({ push, remove, form }) => (
         <>
           {arrayField.label && createArrayFieldLabel()}
-          {form.values[arrayField.id]?.map((_: any, index: number) =>
-            createFieldArrayContent(remove, index),
-          )}
-          {checkFieldArrayMaxSize(form.values[arrayField.id].length) &&
-            createArrayItemAddButton(push)}
+          {lodash
+            .get(form.values, arrayField.id)
+            ?.map((_: any, index: number) =>
+              createFieldArrayContent(remove, index)
+            )}
+          {checkFieldArrayMaxSize(
+            lodash.get(form.values, arrayField.id)?.length
+          ) && createArrayItemAddButton(push)}
           {createErrorList(form)}
         </>
       )}
