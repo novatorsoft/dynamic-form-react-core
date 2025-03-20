@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.3.1...v2.4.0) (2025-03-20)
+
+
+### Features
+
+* add group field in array field ([98a997d](https://github.com/@nvs-dynamic-form/react-core/commit/98a997d25089773b911966df8b7adc1325f49232))
+* create form build and elements components ([fb471f4](https://github.com/@nvs-dynamic-form/react-core/commit/fb471f4b327ac728757d04beac465eca846ee202))
+
+
+### Bug Fixes
+
+* fix for nested group field ([fb61f0a](https://github.com/@nvs-dynamic-form/react-core/commit/fb61f0a32f1ba7a98c548bfa0d8d3b9189c37f85))
+
 ### [2.3.1](https://github.com/@nvs-dynamic-form/react-core/compare/v2.3.0...v2.3.1) (2024-09-23)
 
 
