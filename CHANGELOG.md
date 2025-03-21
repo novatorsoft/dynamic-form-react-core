@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/@nvs-dynamic-form/react-core/compare/v2.4.0...v2.4.1) (2025-03-21)
+
+
+### Bug Fixes
+
+* fix for group field model ([1ac15be](https://github.com/@nvs-dynamic-form/react-core/commit/1ac15bebcca8db5989f4cee48e90bff554a93651))
+
 ## [2.4.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.3.1...v2.4.0) (2025-03-20)
 
 
