@@ -15,7 +15,7 @@ import { List } from "../list/_template";
 export const ArrayField: React.FC<IArrayField> = ({
   field: arrayField,
   formElements,
-  containerComponent,
+  containerComponent: ContainerComponent,
   containerVisible,
   useContainersOutsideGroup,
   useGroupContainer,
@@ -79,7 +79,7 @@ export const ArrayField: React.FC<IArrayField> = ({
             <Elements
               fields={createArrayItem(index)}
               formElements={formElements}
-              containerComponent={containerComponent}
+              containerComponent={ContainerComponent}
               useContainersOutsideGroup={useContainersOutsideGroup}
               useGroupContainer={useGroupContainer}
               containerVisible={containerVisible}
@@ -183,22 +183,36 @@ export const ArrayField: React.FC<IArrayField> = ({
     return error && <List items={[error]} />;
   };
 
-  return (
-    <FieldArray name={arrayField.id}>
-      {({ push, remove, form }) => (
-        <>
-          {arrayField.label && createArrayFieldLabel()}
-          {lodash
-            .get(form.values, arrayField.id)
-            ?.map((_: any, index: number) =>
-              createFieldArrayContent(remove, index)
-            )}
-          {checkFieldArrayMaxSize(
-            lodash.get(form.values, arrayField.id)?.length
-          ) && createArrayItemAddButton(push)}
-          {createErrorList(form)}
-        </>
-      )}
-    </FieldArray>
+  const isContainerVisible = () => {
+    return arrayField.containerVisible && useGroupContainer && containerVisible;
+  };
+
+  const ContentArrayField = () => {
+    return (
+      <FieldArray name={arrayField.id}>
+        {({ push, remove, form }) => (
+          <>
+            {arrayField.label && createArrayFieldLabel()}
+            {lodash
+              .get(form.values, arrayField.id)
+              ?.map((_: any, index: number) =>
+                createFieldArrayContent(remove, index)
+              )}
+            {checkFieldArrayMaxSize(
+              lodash.get(form.values, arrayField.id)?.length
+            ) && createArrayItemAddButton(push)}
+            {createErrorList(form)}
+          </>
+        )}
+      </FieldArray>
+    );
+  };
+
+  return isContainerVisible() ? (
+    <ContainerComponent>
+      <ContentArrayField />
+    </ContainerComponent>
+  ) : (
+    <ContentArrayField />
   );
 };
