@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.5.2...v2.6.0) (2025-03-23)
+
+
+### Features
+
+* add submit button options field ([10ed98b](https://github.com/@nvs-dynamic-form/react-core/commit/10ed98bd1ba38308bd95e20d12bcf8b03f49d0ba))
+
 ### [2.5.2](https://github.com/@nvs-dynamic-form/react-core/compare/v2.5.1...v2.5.2) (2025-03-23)
 
 
