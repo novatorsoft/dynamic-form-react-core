@@ -8,6 +8,7 @@ import {
 import { FieldArray, FormikProps } from "formik";
 import React, { ReactNode, useCallback, useState } from "react";
 
+import { Container } from "../container";
 import { Elements } from "../elements";
 import { IArrayField } from "./_type";
 import { List } from "../list/_template";
@@ -15,7 +16,7 @@ import { List } from "../list/_template";
 export const ArrayField: React.FC<IArrayField> = ({
   field: arrayField,
   formElements,
-  containerComponent: ContainerComponent,
+  containerComponent,
   containerVisible,
   useContainersOutsideGroup,
   useGroupContainer,
@@ -79,7 +80,7 @@ export const ArrayField: React.FC<IArrayField> = ({
             <Elements
               fields={createArrayItem(index)}
               formElements={formElements}
-              containerComponent={ContainerComponent}
+              containerComponent={containerComponent}
               useContainersOutsideGroup={useContainersOutsideGroup}
               useGroupContainer={useGroupContainer}
               containerVisible={containerVisible}
@@ -205,6 +206,17 @@ export const ArrayField: React.FC<IArrayField> = ({
           </>
         )}
       </FieldArray>
+    );
+  };
+
+  const ContainerComponent = ({ children }: { children: ReactNode }) => {
+    return (
+      <Container
+        containerComponent={containerComponent}
+        options={arrayField.containerOptions}
+      >
+        {children}
+      </Container>
     );
   };
 
