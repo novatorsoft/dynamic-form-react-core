@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.4.3...v2.5.0) (2025-03-23)
+
+
+### Features
+
+* add container in array field ([48b3497](https://github.com/@nvs-dynamic-form/react-core/commit/48b3497b3051a83baaebecfd0bdd6779084d17d2))
+
 ### [2.4.3](https://github.com/@nvs-dynamic-form/react-core/compare/v2.4.2...v2.4.3) (2025-03-22)
 
 
