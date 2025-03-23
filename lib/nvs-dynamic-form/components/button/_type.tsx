@@ -5,4 +5,5 @@ export interface IButton {
   position?: "left" | "center" | "right";
   isFullWidth?: boolean;
   containerClass?: string;
+  options?: { [key: string]: any };
 }

@@ -8,6 +8,7 @@ export const Button = ({
   position = "right",
   isFullWidth,
   containerClass,
+  options = {},
 }: IButton) => {
   const getButtonPositionClass = (position: "left" | "right" | "center") => {
     const classes = {
@@ -32,7 +33,7 @@ export const Button = ({
     >
       <div className={`nvs-row ${getButtonPositionClass(position)}`}>
         <div className={getSubmitButtonClasses()}>
-          <ButtonComponent>{label}</ButtonComponent>
+          <ButtonComponent {...options}>{label}</ButtonComponent>
         </div>
       </div>
     </div>

@@ -23,6 +23,7 @@ export interface INvsDynamicForm extends Omit<IField, "field"> {
   useGroupContainer?: boolean;
   buttonComponent: React.FC<any>;
   submitButtonDefaultOptions: ISubmitButtonDefaultOptions;
+  submitButtonOptions?: { [key: string]: any };
   submitButtonVisible?: boolean;
   submitButtonLabel?: string;
   submitButtonPosition?: "left" | "center" | "right";

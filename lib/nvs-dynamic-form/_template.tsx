@@ -2,11 +2,11 @@ import "nvs-flexgrid";
 import "./_style.css";
 
 import { Button } from "./components/button";
+import { Container } from "./components/container";
+import { FormBuilder } from "./components/formBuilder";
 import { FormikForm } from "./formikForm";
 import { INvsDynamicForm } from "./_type";
 import React from "react";
-import { FormBuilder } from "./components/formBuilder";
-import { Container } from "./components/container";
 
 export const NvsDynamicForm = ({
   onSubmit,
@@ -15,6 +15,7 @@ export const NvsDynamicForm = ({
   formClass,
   buttonComponent,
   submitButtonDefaultOptions,
+  submitButtonOptions,
   submitButtonVisible = true,
   submitButtonLabel = submitButtonDefaultOptions.label,
   submitButtonIsFullWidth = submitButtonDefaultOptions.isFullWidth,
@@ -49,6 +50,7 @@ export const NvsDynamicForm = ({
         isFullWidth={submitButtonIsFullWidth}
         position={submitButtonPosition}
         containerClass={submitButtonContainerClass}
+        options={submitButtonOptions}
       />
     </FormikForm>
   );
