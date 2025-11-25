@@ -32,4 +32,5 @@ export interface INvsDynamicForm extends Omit<IField, "field"> {
   addButtonDefaultOptions?: ArrayFieldAddButton;
   removeButtonDefaultOptions?: ArrayFieldRemoveButton;
   labelDefaultOptions?: LabelOptions;
+  doubleSubmitProtection?: boolean;
 }

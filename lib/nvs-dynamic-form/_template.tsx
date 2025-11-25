@@ -1,12 +1,13 @@
 import "nvs-flexgrid";
 import "./_style.css";
 
+import React, { useState } from "react";
+
 import { Button } from "./components/button";
 import { Container } from "./components/container";
 import { FormBuilder } from "./components/formBuilder";
 import { FormikForm } from "./formikForm";
 import { INvsDynamicForm } from "./_type";
-import React from "react";
 
 export const NvsDynamicForm = ({
   onSubmit,
@@ -28,9 +29,19 @@ export const NvsDynamicForm = ({
   useGroupContainer = false,
   addButtonDefaultOptions,
   removeButtonDefaultOptions,
+  doubleSubmitProtection = false,
 }: INvsDynamicForm) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (values: unknown) => {
+    if (doubleSubmitProtection && isSubmitting) return;
+    setIsSubmitting(true);
+    await onSubmit?.(values);
+    setIsSubmitting(false);
+  };
+
   const formikForm = (
-    <FormikForm onSubmit={onSubmit} fields={fields} formClass={formClass}>
+    <FormikForm onSubmit={handleSubmit} fields={fields} formClass={formClass}>
       <FormBuilder
         containerComponent={container}
         formElements={formElements}
