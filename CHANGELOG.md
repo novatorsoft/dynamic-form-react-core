@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.6.0...v2.7.0) (2025-11-25)
+
+
+### Features
+
+* implement double submit protection in dynamic form ([1655f03](https://github.com/@nvs-dynamic-form/react-core/commit/1655f0315b4523ea444e993b50691ccbbeec98cb))
+
 ## [2.6.0](https://github.com/@nvs-dynamic-form/react-core/compare/v2.5.2...v2.6.0) (2025-03-23)
 
 
