@@ -5,7 +5,7 @@ import {
   LabelOptions,
 } from "../../../types";
 import { Field, IFormElement } from "../field";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { ArrayField as ArrayFieldElement } from "../arrayField";
 import { FieldBase } from "../../../types";
@@ -35,18 +35,16 @@ export const Elements = ({
   fieldArrayRemoveButtonDefaultOptions?: ArrayFieldAddButton;
   labelDefaultOptions?: LabelOptions;
 }) => {
-  const [fieldsElements, setFieldsElements] = useState<JSX.Element[]>([]);
-
   const createFormElements = (): JSX.Element[] => {
-    const fieldsElements = [];
+    const elements = [];
     for (const field of fields) {
       if (field instanceof GroupField)
-        fieldsElements.push(createGroupFieldElement(field));
+        elements.push(createGroupFieldElement(field));
       else if (field instanceof ArrayField)
-        fieldsElements.push(createArrayFieldElement(field));
-      else fieldsElements.push(createSingleFieldElement(field));
+        elements.push(createArrayFieldElement(field));
+      else elements.push(createSingleFieldElement(field));
     }
-    return fieldsElements;
+    return elements;
   };
 
   const createSingleFieldElement = (field: FieldBase<unknown>) => {
@@ -86,9 +84,6 @@ export const Elements = ({
     );
   };
 
-  useEffect(() => {
-    if (fields.length > 0) setFieldsElements(createFormElements());
-  }, [fields]);
-
-  return fieldsElements.length > 0 ? fieldsElements : <></>;
+  const fieldsElements = fields.length > 0 ? createFormElements() : [];
+  return fieldsElements.length > 0 ? <>{fieldsElements}</> : <></>;
 };

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
 import { ArrayField, GroupField, LabelOptions } from "../../../types";
 import { IFormElement } from "../field";
 import { FieldType } from "../../_type";
@@ -31,29 +31,24 @@ export const FormBuilder = ({
   fieldArrayRemoveButtonDefaultOptions?: ArrayFieldAddButton;
   labelDefaultOptions?: LabelOptions;
 }) => {
-  const [formContent, setFormContent] = useState<ReactNode>();
-
   const createFormContent = () => {
     const singleFields = createSingleFieldsElements();
     const groupFields = createGroupFieldsElements();
 
-    let formContent;
     if (containerVisible && useContainersOutsideGroup && singleFields)
-      formContent = (
+      return (
         <>
           {createContainer(singleFields, containerOptions)}
           {groupFields}
         </>
       );
-    else
-      formContent = createFormGroup(
-        <>
-          {singleFields}
-          {groupFields}
-        </>,
-      );
 
-    return formContent;
+    return createFormGroup(
+      <>
+        {singleFields}
+        {groupFields}
+      </>,
+    );
   };
 
   const createContentContainer = (formElements: ReactNode) => {
@@ -141,9 +136,5 @@ export const FormBuilder = ({
     return <div className="df-form-group">{formContent}</div>;
   };
 
-  useEffect(() => {
-    setFormContent(createFormContent());
-  }, [fields]);
-
-  return <>{formContent}</>;
+  return <>{createFormContent()}</>;
 };
