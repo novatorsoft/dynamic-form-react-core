@@ -4,9 +4,9 @@
 <p align="center">A React core library that provides the foundational building blocks for creating typed, schema-driven dynamic forms with a consistent developer experience.</p>
 
 <p align="center">
-     <a href="https://www.npmjs.com/package/nestjs-auth-module" target="_blank"><img src="https://img.shields.io/npm/v/nestjs-auth-module.svg" alt="NPM Version" /></a>
-     <a href="https://www.npmjs.com/package/nestjs-auth-module" target="_blank"><img src="https://img.shields.io/npm/l/nestjs-auth-module.svg" alt="Package License" /></a>
-     <a href="https://www.npmjs.com/package/nestjs-auth-module" target="_blank"><img src="https://img.shields.io/npm/dm/nestjs-auth-module.svg" alt="NPM Downloads" /></a>
+     <a href="https://www.npmjs.com/package/@nvs-dynamic-form/react-core" target="_blank"><img src="https://img.shields.io/npm/v/@nvs-dynamic-form/react-core.svg" alt="NPM Version" /></a>
+     <a href="https://www.npmjs.com/package/@nvs-dynamic-form/react-core" target="_blank"><img src="https://img.shields.io/npm/l/@nvs-dynamic-form/react-core.svg" alt="Package License" /></a>
+     <a href="https://www.npmjs.com/package/@nvs-dynamic-form/react-core" target="_blank"><img src="https://img.shields.io/npm/dm/@nvs-dynamic-form/react-core.svg" alt="NPM Downloads" /></a>
 </p>
 <p align="center">
      <a href="https://www.instagram.com/novatorsoft/" target="_blank"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
