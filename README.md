@@ -4,8 +4,6 @@
 <p align="center">A React core library that provides the foundational building blocks for creating typed, schema-driven dynamic forms with a consistent developer experience.</p>
 
 <p align="center">
-     <a href="https://sonarcloud.io/summary/overall?id=novatorsoft_nestjs-auth-module" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=novatorsoft_nestjs-auth-module&metric=alert_status"/></a>
-     <a href="https://sonarcloud.io/summary/overall?id=novatorsoft_nestjs-auth-module" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=novatorsoft_nestjs-auth-module&metric=coverage"/></a>
      <a href="https://www.npmjs.com/package/nestjs-auth-module" target="_blank"><img src="https://img.shields.io/npm/v/nestjs-auth-module.svg" alt="NPM Version" /></a>
      <a href="https://www.npmjs.com/package/nestjs-auth-module" target="_blank"><img src="https://img.shields.io/npm/l/nestjs-auth-module.svg" alt="Package License" /></a>
      <a href="https://www.npmjs.com/package/nestjs-auth-module" target="_blank"><img src="https://img.shields.io/npm/dm/nestjs-auth-module.svg" alt="NPM Downloads" /></a>
